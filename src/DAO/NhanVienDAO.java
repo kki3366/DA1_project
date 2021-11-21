@@ -30,7 +30,7 @@ public class NhanVienDAO extends DAO<NhanVien, String> {
 
     @Override
     public void update(NhanVien enity) {
-        JDBCHelper.update(UPDATE_SQL, enity.getIdNhanVien(), enity.getMatKhau(), enity.getHoTen(), enity.isVaiTro());
+        JDBCHelper.update(UPDATE_SQL, enity.getMatKhau(), enity.getHoTen(), enity.isVaiTro(),enity.getIdNhanVien());
     }
 
     @Override
