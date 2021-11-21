@@ -8,3 +8,7 @@ Cơ Sở dữ liệu
 
 
 **Đang thực hiện viết mã và thiết kế giao diện
+--Đã làm xong:
++ Lớp JDBC
++ Thực thể: NhanVien,Phong
++ DAO: NhanVien,Phong
