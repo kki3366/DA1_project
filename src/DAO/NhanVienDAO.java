@@ -58,11 +58,6 @@ public class NhanVienDAO extends DAO<NhanVien, String> {
         try {
             ResultSet rs = JDBCHelper.query(sql, args);
             while (rs.next()) {
-//               NhanVien enity = new NhanVien();
-//               enity.setMaNV(rs.getString("MaNV"));
-//               enity.setHoTen(rs.getString("HoTen"));
-//               enity.setMatKhau(rs.getString("MatKhau"));
-//               enity.setVaiTro(rs.getBoolean("VaiTro"));
                 NhanVien nv = NhanVien.builder()
                         .IdNhanVien(rs.getString("IDNhanVien"))
                         .MatKhau(rs.getString("MatKhau"))
