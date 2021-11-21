@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class NhanVienDAO extends DAO<NhanVien, String> {
 
-    private final String INSERT_SQL = "INSERT INTO NhanVien (IDNhanVien, MatKhau, HoTen, VaiTro) VALUES (?, ?, ?, ?);";
+    private final String INSERT_SQL = "INSERT INTO NhanVien (IDNhanVien, MatKhau, HoTen, VaiTro) VALUES (?, ?, ?, ?)";
     private final String UPDATE_SQL = "UPDATE NhanVien SET MatKhau=?, HoTen=?, VaiTro=? WHERE IDNhanVien=?";
     private final String DELETE_SQL = "DELETE FROM NhanVien WHERE IDNhanVien=?";
     private final String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
