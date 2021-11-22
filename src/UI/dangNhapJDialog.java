@@ -28,8 +28,8 @@ public class dangNhapJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
     
-    NhanVienDAO dao = new NhanVienDAO();
-
+//    NhanVienDAO dao = new NhanVienDAO();
+//
 //    public void DangNhap() {
 //        String maNV = txtMaNV.getText();
 //        String matKhau = new String(txtMatKhau.getPassword());
