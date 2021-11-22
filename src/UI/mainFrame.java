@@ -33,6 +33,7 @@ public class mainFrame extends javax.swing.JFrame {
     void init() {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         new Timer(1000, new ActionListener() {
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
 
@@ -79,23 +80,29 @@ public class mainFrame extends javax.swing.JFrame {
 //        }
 //    }
 //
-//    void OpenKhoaHoc() {
-//        if (Auth.isLogin()) {
-//            khoaHocJInternalFrame khoahoc = new khoaHocJInternalFrame();
-//            OpenFrameAnother(khoahoc);
-//        } else {
-//            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
-//        }
-//    }
+
+    void OpenDatPhong() {
+        DatPhongJInternalFrame datphong = new DatPhongJInternalFrame();
+        OpenFrameAnother(datphong);
+    }
 //
-//    void OpenChuyenDe() {
+
+    void OpenSanPham() {
+        SanPhamJInternalFrame sp = new SanPhamJInternalFrame();
+        OpenFrameAnother(sp);
+    }
+
+    void OpenPhong() {
 //        if (Auth.isLogin()) {
-//            chuyenDeJInternalFrame chuyende = new chuyenDeJInternalFrame();
-//            OpenFrameAnother(chuyende);
+//            PhongJInternalFrame phong = new PhongJInternalFrame();
+//            OpenFrameAnother(phong);
 //        } else {
 //            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
 //        }
-//    }
+//        
+        PhongJInternalFrame phong = new PhongJInternalFrame();
+        OpenFrameAnother(phong);
+    }
 
     void OpenNhanVien() {
         if (Auth.isLogin()) {
@@ -143,10 +150,10 @@ public class mainFrame extends javax.swing.JFrame {
         mniDoiMatKhau = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mniKetThuc = new javax.swing.JMenuItem();
-        menuQuanLy = new javax.swing.JMenu();
-        mniNguoiHoc = new javax.swing.JMenuItem();
-        mniChuyenDe = new javax.swing.JMenuItem();
-        mniKhoaHoc = new javax.swing.JMenuItem();
+        menuSanPham = new javax.swing.JMenu();
+        mniPhong = new javax.swing.JMenuItem();
+        mniDatPhong = new javax.swing.JMenuItem();
+        mniSanPham = new javax.swing.JMenuItem();
         mniQuanLyNhanVien = new javax.swing.JMenuItem();
         menuThongKe = new javax.swing.JMenu();
         mniLuongNguoiHoc = new javax.swing.JMenuItem();
@@ -176,7 +183,7 @@ public class mainFrame extends javax.swing.JFrame {
         );
         mainFrameLayout.setVerticalGroup(
             mainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 569, Short.MAX_VALUE)
         );
 
         getContentPane().add(mainFrame, java.awt.BorderLayout.CENTER);
@@ -234,38 +241,43 @@ public class mainFrame extends javax.swing.JFrame {
 
         menuBar.add(mnuHeThong);
 
-        menuQuanLy.setText("Quản lý");
-        menuQuanLy.setMargin(new java.awt.Insets(5, 5, 5, 5));
-
-        mniNguoiHoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mniNguoiHoc.setText("Phòng - Đặt Phòng");
-        mniNguoiHoc.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        mniNguoiHoc.addActionListener(new java.awt.event.ActionListener() {
+        menuSanPham.setText("Quản lý");
+        menuSanPham.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        menuSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNguoiHocActionPerformed(evt);
+                menuSanPhamActionPerformed(evt);
             }
         });
-        menuQuanLy.add(mniNguoiHoc);
 
-        mniChuyenDe.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mniChuyenDe.setText("Hóa Đơn");
-        mniChuyenDe.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        mniChuyenDe.addActionListener(new java.awt.event.ActionListener() {
+        mniPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniPhong.setText("Phòng ");
+        mniPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniChuyenDeActionPerformed(evt);
+                mniPhongActionPerformed(evt);
             }
         });
-        menuQuanLy.add(mniChuyenDe);
+        menuSanPham.add(mniPhong);
 
-        mniKhoaHoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mniKhoaHoc.setText("Sản Phẩm");
-        mniKhoaHoc.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        mniKhoaHoc.addActionListener(new java.awt.event.ActionListener() {
+        mniDatPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDatPhong.setText("Đặt Phòng");
+        mniDatPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniDatPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniKhoaHocActionPerformed(evt);
+                mniDatPhongActionPerformed(evt);
             }
         });
-        menuQuanLy.add(mniKhoaHoc);
+        menuSanPham.add(mniDatPhong);
+
+        mniSanPham.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniSanPham.setText("Sản Phẩm");
+        mniSanPham.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniSanPhamActionPerformed(evt);
+            }
+        });
+        menuSanPham.add(mniSanPham);
 
         mniQuanLyNhanVien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniQuanLyNhanVien.setText("Quản lý nhân viên");
@@ -275,9 +287,9 @@ public class mainFrame extends javax.swing.JFrame {
                 mniQuanLyNhanVienActionPerformed(evt);
             }
         });
-        menuQuanLy.add(mniQuanLyNhanVien);
+        menuSanPham.add(mniQuanLyNhanVien);
 
-        menuBar.add(menuQuanLy);
+        menuBar.add(menuSanPham);
 
         menuThongKe.setText("Thống kê");
         menuThongKe.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -305,22 +317,22 @@ public class mainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_mniKetThucActionPerformed
 
-    private void mniChuyenDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChuyenDeActionPerformed
-//        OpenChuyenDe();
-    }//GEN-LAST:event_mniChuyenDeActionPerformed
+    private void mniDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatPhongActionPerformed
+        OpenDatPhong();
+    }//GEN-LAST:event_mniDatPhongActionPerformed
 
 
-    private void mniNguoiHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNguoiHocActionPerformed
-
-    }//GEN-LAST:event_mniNguoiHocActionPerformed
+    private void mniPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniPhongActionPerformed
+        OpenPhong();
+    }//GEN-LAST:event_mniPhongActionPerformed
 
     private void mniDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangNhapActionPerformed
         openLogin();
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
-    private void mniKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniKhoaHocActionPerformed
-//        OpenKhoaHoc();
-    }//GEN-LAST:event_mniKhoaHocActionPerformed
+    private void mniSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSanPhamActionPerformed
+        OpenSanPham();
+    }//GEN-LAST:event_mniSanPhamActionPerformed
 
     private void mniQuanLyNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhanVienActionPerformed
         OpenNhanVien();
@@ -337,6 +349,10 @@ public class mainFrame extends javax.swing.JFrame {
     private void mainFrameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainFrameMouseReleased
 
     }//GEN-LAST:event_mainFrameMouseReleased
+
+    private void menuSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSanPhamActionPerformed
+        OpenSanPham();
+    }//GEN-LAST:event_menuSanPhamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,17 +403,17 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDongHo;
     private javax.swing.JDesktopPane mainFrame;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuQuanLy;
+    private javax.swing.JMenu menuSanPham;
     private javax.swing.JMenu menuThongKe;
-    private javax.swing.JMenuItem mniChuyenDe;
     private javax.swing.JMenuItem mniDangNhap;
     private javax.swing.JMenuItem mniDangXuat;
+    private javax.swing.JMenuItem mniDatPhong;
     private javax.swing.JMenuItem mniDoiMatKhau;
     private javax.swing.JMenuItem mniKetThuc;
-    private javax.swing.JMenuItem mniKhoaHoc;
     private javax.swing.JMenuItem mniLuongNguoiHoc;
-    private javax.swing.JMenuItem mniNguoiHoc;
+    private javax.swing.JMenuItem mniPhong;
     private javax.swing.JMenuItem mniQuanLyNhanVien;
+    private javax.swing.JMenuItem mniSanPham;
     private javax.swing.JMenu mnuHeThong;
     private javax.swing.JPopupMenu popupMenu;
     // End of variables declaration//GEN-END:variables

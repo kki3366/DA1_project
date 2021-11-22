@@ -17,11 +17,11 @@ package UI;
  * @author Nghiptpc00940
  * Ngày 04/10/2021
  */
-public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
+public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 //     nhanVienDAO dao = new nhanVienDAO();
      int row = 0;
 
-    public nhanVienJInternalFrame() {
+    public PhongJInternalFrame() {
         initComponents();
 //        init();
     }
@@ -34,13 +34,9 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         tabs = new javax.swing.JTabbedPane();
         pnlEdit = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtMaNV = new javax.swing.JTextField();
+        txtTenPhong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtHoTen = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtXacNhanMK = new javax.swing.JPasswordField();
-        txtMatKhau = new javax.swing.JPasswordField();
+        txtGiaPhong = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         rdoTruongPhong = new javax.swing.JRadioButton();
         rdoNhanVien = new javax.swing.JRadioButton();
@@ -48,6 +44,7 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         pnlList = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
@@ -56,7 +53,7 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("QUẢN LÝ NHÂN VIÊN");
+        setTitle("QUẢN LÝ PHÒNG");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -78,32 +75,24 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("QUẢN LÝ NHÂN VIÊN");
+        jLabel1.setText("QUẢN LÝ PHÒNG");
 
-        jLabel2.setText("Mã nhân viên");
+        jLabel2.setText("Tên Phòng");
 
-        txtMaNV.setName("Mã nhân viên"); // NOI18N
+        txtTenPhong.setName("Mã nhân viên"); // NOI18N
 
-        jLabel3.setText("Mật khẩu");
+        jLabel3.setText("Giá Phòng");
 
-        jLabel4.setText("Xác nhận mật khẩu");
+        txtGiaPhong.setName("Mật khẩu"); // NOI18N
 
-        txtHoTen.setName("Họ và tên"); // NOI18N
-
-        jLabel5.setText("Họ và tên");
-
-        txtXacNhanMK.setName("Xác nhận mật khẩu"); // NOI18N
-
-        txtMatKhau.setName("Mật khẩu"); // NOI18N
-
-        jLabel6.setText("Vai trò");
+        jLabel6.setText("Loại Phòng");
 
         buttonGroup1.add(rdoTruongPhong);
         rdoTruongPhong.setSelected(true);
-        rdoTruongPhong.setText("Quản Lý");
+        rdoTruongPhong.setText("VIP");
 
         buttonGroup1.add(rdoNhanVien);
-        rdoNhanVien.setText("Nhân Viên");
+        rdoNhanVien.setText("THƯỜNG");
 
         btnInsert.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnInsert.setText("Thêm");
@@ -137,6 +126,8 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextField2.setText("jTextField2");
+
         javax.swing.GroupLayout pnlEditLayout = new javax.swing.GroupLayout(pnlEdit);
         pnlEdit.setLayout(pnlEditLayout);
         pnlEditLayout.setHorizontalGroup(
@@ -144,16 +135,15 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(pnlEditLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMaNV)
-                    .addComponent(txtHoTen)
-                    .addComponent(txtXacNhanMK)
-                    .addComponent(txtMatKhau)
+                    .addComponent(txtTenPhong)
+                    .addComponent(txtGiaPhong)
                     .addGroup(pnlEditLayout.createSequentialGroup()
                         .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
+                            .addGroup(pnlEditLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
                             .addGroup(pnlEditLayout.createSequentialGroup()
                                 .addComponent(rdoTruongPhong)
@@ -167,7 +157,7 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
                                 .addComponent(btnDelete)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnClear)))
-                        .addGap(0, 190, Short.MAX_VALUE)))
+                        .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlEditLayout.setVerticalGroup(
@@ -176,32 +166,26 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTenPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtXacNhanMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtGiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdoTruongPhong)
                     .addComponent(rdoNhanVien))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsert)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnClear))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         tabs.addTab("CẬP NHẬT", null, pnlEdit, "Cập nhật");
@@ -210,17 +194,17 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
 
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID NHÂN  VIÊN", "MẬT KHẨU", "HỌ VÀ TÊN", "VAI TRÒ"
+                "ID PHÒNG", "TÊN PHÒNG", "GIÁ PHÒNG", "TRẠNG THÁI", "LOẠI PHÒNG"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -247,16 +231,16 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
             .addComponent(tabs)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -478,20 +462,17 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pnlEdit;
     private javax.swing.JPanel pnlList;
     private javax.swing.JRadioButton rdoNhanVien;
     private javax.swing.JRadioButton rdoTruongPhong;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblNhanVien;
-    private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtMaNV;
-    private javax.swing.JPasswordField txtMatKhau;
-    private javax.swing.JPasswordField txtXacNhanMK;
+    private javax.swing.JPasswordField txtGiaPhong;
+    private javax.swing.JTextField txtTenPhong;
     // End of variables declaration//GEN-END:variables
 
     
