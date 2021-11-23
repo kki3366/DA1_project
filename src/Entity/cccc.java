@@ -11,4 +11,6 @@ package Entity;
  */
 public class cccc {
     int a;
+    // ví dụ nè
+    int b;
 }
