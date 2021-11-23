@@ -1,5 +1,13 @@
 package UI;
 
+import DAO.NhanVienDAO;
+import Entity.NhanVien;
+import Ultils.Auth;
+import Ultils.Check;
+import Ultils.MsgBox;
+import java.util.List;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 //
 //import DAO.nhanVienDAO;
@@ -10,21 +18,20 @@ package UI;
 //import Entity.NhanVien;
 //import Utils.Auth;
 //import Utils.MsgBox;
-
-
 /**
  *
- * @author Nghiptpc00940
- * Ngày 04/10/2021
+ * @author Nghiptpc00940 Ngày 04/10/2021
  */
 public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
-//     nhanVienDAO dao = new nhanVienDAO();
-     int row = 0;
+
+    NhanVienDAO dao = new NhanVienDAO();
+    int row = 0;
 
     public nhanVienJInternalFrame() {
         initComponents();
-//        init();
+        init();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,211 +268,191 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//    public void init(){
-//        tabs.setSelectedIndex(1);
-//        this.fillTable();
-//        this.row = -1;
-//        this.updateStatus();
-//    }
+    public void init() {
+        tabs.setSelectedIndex(1);
+        this.fillTable();
+        this.row = -1;
+        this.updateStatus();
+    }
 //    
-    
- 
-    //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
-//        public void fillTable(){
-//            DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel(); //tạo 1 model cho bảng nhân viên
-//            model.setRowCount(0); // xóa tất cả các hàng trên bảng nhân viên
-//            try {
-//                List<NhanVien> list = dao.selectAll();//đọc cơ sở dữ liệu từ CSDL
-//                for(NhanVien nv : list){
-//                    Object[] row = {nv.getMaNV(),nv.getMatKhau(),nv.getHoTen(),nv.isVaiTro()?"Trưởng phòng":"Nhân viên"};
-//                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
-//                }
-//            } catch (Exception e) {
-//                MsgBox.alert(this, "Lỗi Truy Vấn Dữ Liệu");         
-//            }
-//        }
-        
-     //Tạo hàm setForm
-//        public void setForm(NhanVien nv){
-//            txtMaNV.setText(nv.getMaNV());
-//            txtHoTen.setText(nv.getHoTen());
-//            txtMatKhau.setText(nv.getMatKhau());
-//            txtXacNhanMK.setText(nv.getMatKhau());
-//            rdoTruongPhong.setSelected(nv.isVaiTro());
-//            rdoNhanVien.setSelected(!nv.isVaiTro());
-//        }
-        
-//        public NhanVien getForm(){
-//            NhanVien nv = new NhanVien();
-//            nv.setMaNV(txtMaNV.getText());
-//            nv.setHoTen(txtHoTen.getText());
-//            nv.setMatKhau(new String (txtMatKhau.getPassword()));
-//            nv.setVaiTro(rdoTruongPhong.isSelected());
-//            return nv;
-//        }
-//        
-//        public void clearForm(){
-//            NhanVien nv = new NhanVien();
-//            this.setForm(nv);
-//            this.row = -1;
-//            this.updateStatus();
-//        }
-//        
-//        public void edit(){
-//            String manv = (String)tblNhanVien.getValueAt(this.row, 0);
-//            NhanVien nv = dao.selectById(manv);
-//            this.setForm(nv);
-//            tabs.setSelectedIndex(0);
-//            this.updateStatus();
-//        }
-//        
-//        public void insert(){
-//            NhanVien nv = getForm();
-//            String mk2  = new String (txtXacNhanMK.getPassword());
-//            if(!mk2.equals(nv.getMatKhau())){
-//                MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//                txtXacNhanMK.requestFocus();
-//            }else{
-//                try {
-//                    dao.insert(nv);
-//                    this.fillTable();
-//                    this.clearForm();   
-//                    MsgBox.alert(this,"Thêm Mới Thành Công");
-//                } catch (Exception e) {
-//                    MsgBox.alert(this,"Thêm Mới Thất Bại");  
-//                }
-//            }
-//        }
-//        
-//        public void update(){
-//            NhanVien nv = getForm();
-//            String mk2  = new String (txtXacNhanMK.getPassword());
-//            if(!mk2.equals(nv.getMatKhau())){
-//                MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//                txtXacNhanMK.requestFocus();
-//            }else{
-//                try {
-//                    dao.update(nv);
-//                    this.fillTable();   
-//                    MsgBox.alert(this,"Cập Nhật Thành Công");
-//                } catch (Exception e) {
-//                    MsgBox.alert(this,"Cập Nhật Thất Bại");  
-//                }
-//            }
-//        }
-//        
-//         public void delete(){
-//             if(!Auth.isManager()){
-//                 MsgBox.alert(this, "Bạn Không Có Quyền Xóa Nhân Viên");
-//             }else{
-//                 String manv = txtMaNV.getText();
-//                 if(manv.equals(Auth.user.getMaNV())){
-//                     MsgBox.alert(this, "Không Được Xóa Chính Bạn!");
-//                 }else if(MsgBox.confirm(this, "Bạn Thực Sự Muốn Xóa Nhân Viên Này?")){
-//                     try {
-//                         dao.delete(manv);
-//                         this.fillTable();
-//                         this.clearForm();
-//                         MsgBox.alert(this, "Xóa Thành Công!");
-//                     } catch (Exception e) {
-//                         MsgBox.alert(this, "Xóa Thất Bại!");
-//                     }
-//                 }
-//             }
-//            
-//        }
-//         
-//        public void first(){
-//            this.row = 0;
-//            this.edit();
-//        }
-//        
-//        public void next(){
-//            if(this.row < tblNhanVien.getRowCount()-1){
-//                this.row++;
-//                this.edit();
-//            }
-//        }
-//        
-//        public void prev(){
-//            if(this.row>0){
-//                this.row--;
-//                this.edit();
-//            }
-//        }
-//       
-//        public void last(){
-//            this.row =tblNhanVien.getRowCount() -1;
-//            this.edit();
-//        }
-//        
-//        public void updateStatus(){
-//            boolean edit = (this.row>= 0);
-//            boolean first = (this.row == 0);
-//            boolean last = ( this.row == tblNhanVien.getRowCount() -1 );
-//            //trạng thái form
-//            txtMaNV.setEditable(!edit);
-//            btnInsert.setEnabled(!edit);
-//            btnUpdate.setEnabled(edit);
-//            btnDelete.setEnabled(edit);
-//            
-//            //trạng thái điều hướng
-//            
-//            btnFirst.setEnabled(edit && !first);
-//            btnPrev.setEnabled(edit && !first);
-//            btnNext.setEnabled(edit && !last);
-//            btnLast.setEnabled(edit && !last);
-//        }
-//         
-//        
-           
 
-   
+    //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
+    public void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel(); //tạo 1 model cho bảng nhân viên
+        model.setRowCount(0); // xóa tất cả các hàng trên bảng nhân viên
+        try {
+            List<NhanVien> list = dao.selectAll();//đọc cơ sở dữ liệu từ CSDL
+            for (NhanVien nv : list) {
+                Object[] row = {nv.getIdNhanVien(), nv.getMatKhau(), nv.getHoTen(), nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
+                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi Truy Vấn Dữ Liệu");
+        }
+    }
+
+    //Tạo hàm setForm
+    public void setForm(NhanVien nv) {
+        txtMaNV.setText(nv.getIdNhanVien());
+        txtHoTen.setText(nv.getHoTen());
+        txtMatKhau.setText(nv.getMatKhau());
+        txtXacNhanMK.setText(nv.getMatKhau());
+        rdoTruongPhong.setSelected(nv.isVaiTro());
+        rdoNhanVien.setSelected(!nv.isVaiTro());
+    }
+//        
+
+    public NhanVien getForm() {
+        NhanVien nv = new NhanVien();
+        nv.setIdNhanVien(txtMaNV.getText());
+        nv.setHoTen(txtHoTen.getText());
+        nv.setMatKhau(new String(txtMatKhau.getPassword()));
+        nv.setVaiTro(rdoTruongPhong.isSelected());
+        return nv;
+    }
+//        
+
+    public void clearForm() {
+        NhanVien nv = new NhanVien();
+        this.setForm(nv);
+        this.row = -1;
+        this.updateStatus();
+    }
+//        
+
+    public void edit() {
+        String manv = (String) tblNhanVien.getValueAt(this.row, 0);
+        NhanVien nv = dao.selectById(manv);
+        this.setForm(nv);
+        tabs.setSelectedIndex(0);
+        this.updateStatus();
+    }
+//        
+
+    public void insert() {
+        NhanVien nv = getForm();
+        String mk2 = new String(txtXacNhanMK.getPassword());
+        if (!mk2.equals(nv.getMatKhau())) {
+            MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
+            txtXacNhanMK.requestFocus();
+        } else {
+            try {
+                dao.insert(nv);
+                this.fillTable();
+                this.clearForm();
+                MsgBox.alert(this, "Thêm Mới Thành Công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Thêm Mới Thất Bại");
+            }
+        }
+    }
+//        
+
+    public void update() {
+        NhanVien nv = getForm();
+        String mk2 = new String(txtXacNhanMK.getPassword());
+        if (!mk2.equals(nv.getMatKhau())) {
+            MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
+            txtXacNhanMK.requestFocus();
+        } else {
+            try {
+                dao.update(nv);
+                this.fillTable();
+                MsgBox.alert(this, "Cập Nhật Thành Công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Cập Nhật Thất Bại");
+            }
+        }
+    }
+//        
+
+    public void delete() {
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Bạn Không Có Quyền Xóa Nhân Viên");
+        } else {
+            String manv = txtMaNV.getText();
+            if (manv.equals(Auth.user.getIdNhanVien())) {
+                MsgBox.alert(this, "Không Được Xóa Chính Bạn!");
+            } else if (MsgBox.confirm(this, "Bạn Thực Sự Muốn Xóa Nhân Viên Này?")) {
+                try {
+                    dao.delete(manv);
+                    this.fillTable();
+                    this.clearForm();
+                    MsgBox.alert(this, "Xóa Thành Công!");
+                } catch (Exception e) {
+                    MsgBox.alert(this, "Xóa Thất Bại!");
+                }
+            }
+        }
+
+    }
+     public boolean checkTrungMa(JTextField jtxt) {
+
+        if (dao.selectById(jtxt.getText()) == null) {
+            return true;
+        } else {
+
+            MsgBox.alert(this, jtxt.getName() + " đã bị tồn tại.");
+            return false;
+        }
+    }
+
+    public void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean first = (this.row == 0);
+        boolean last = (this.row == tblNhanVien.getRowCount() - 1);
+        //trạng thái form
+        txtMaNV.setEditable(!edit);
+        btnInsert.setEnabled(!edit);
+        btnUpdate.setEnabled(edit);
+        btnDelete.setEnabled(edit);
+
+    }
+
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-//                 if(evt.getClickCount() == 2){
-//                     this.row = tblNhanVien.getSelectedRow();
-//                     this.edit();
-//                 }
+        if (evt.getClickCount() == 2) {
+            this.row = tblNhanVien.getSelectedRow();
+            this.edit();
+        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
-    
+
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-//        if(txtMaNV.getText().equals("")){
-//            MsgBox.alert(this, "Vui Lòng Nhập Mã Nhân Viên");
-//            txtMaNV.requestFocus();
-//        }else if(txtMatKhau.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Mật Khẩu");
-//             txtMatKhau.requestFocus();
-//        }else if(txtXacNhanMK.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Xác Nhận Mật Khẩu");
-//             txtXacNhanMK.requestFocus();
-//        }else if(txtHoTen.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Họ Và Tên");
-//             txtHoTen.requestFocus();
-//        }else if(rdoTruongPhong.isSelected()==false && rdoNhanVien.isSelected()==false){
-//             MsgBox.alert(this, "Vui Lòng Chọn Vai Trò");
-//        }else{
-//            this.insert();
-//        }
+       if (Check.checkNullTextField(txtMaNV)
+                && Check.checkNullTextField(txtMatKhau)
+                && Check.checkNullTextField(txtXacNhanMK)
+                && Check.checkNullTextField(txtHoTen)
+                ) {
+            if(!txtMatKhau.getPassword().equals(txtXacNhanMK.getPassword())){
+                if(checkTrungMa(txtMaNV)){
+                    insert();
+                }
+               
+            }else{
+                MsgBox.alert(this, "Mật khẩu không khớp");
+            }
+            
+        }
+    
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//        this.update();
+        this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        this.delete();
+        this.delete();
       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-//           this.clearForm();
+           this.clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
 
