@@ -5,6 +5,7 @@
  */
 package Ultils;
 
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -18,6 +19,15 @@ public class Check {
             return true;
         } else {
             MsgBox.alert(jtxt.getRootPane(), "Không được để trống" + " " + jtxt.getName());
+            return false;
+        }
+    }
+    
+    public static boolean checkNullPassField(JPasswordField jpf) {
+        if (!jpf.getText().trim().isEmpty()) {
+            return true;
+        } else {
+            MsgBox.alert(jpf.getRootPane(), "Không được để trống" + " " + jpf.getName());
             return false;
         }
     }
