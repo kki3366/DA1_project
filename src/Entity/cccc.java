@@ -13,4 +13,5 @@ public class cccc {
     int a;
     // ví dụ nè
     int b;
+    // ví dụ 2
 }
