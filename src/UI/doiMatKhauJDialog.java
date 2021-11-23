@@ -5,11 +5,12 @@
  */
 package UI;
 
-
 import DAO.NhanVienDAO;
+import Ultils.Auth;
+import Ultils.Check;
+import Ultils.MsgBox;
 
 import java.awt.Color;
-
 
 public class doiMatKhauJDialog extends javax.swing.JDialog {
 
@@ -20,33 +21,34 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        txtMaNV.setText(Auth.user.getIdNhanVien());
     }
-//    NhanVienDAO dao = new NhanVienDAO();
-//    private void doiMatKhau(){
-//        String maNV = txtMaNV.getText();
-//        String matKhau = new String(txtMatKhau.getPassword());
-//        String matKhauMoi = new String(txtMatKhauMoi.getPassword());
-//        String matKhauMoi2 = new String(txtXacNhanMKM.getPassword());
-//        
-//        if(!maNV.equalsIgnoreCase(Auth.user.getMaNV())){
-//            MsgBox.alert(this, "Sai Tên Đăng Nhập");
-//        }else if(!matKhau.equals(Auth.user.getMatKhau())){
-//            MsgBox.alert(this, "Sai Mật Khẩu");
-//        }else if(!matKhauMoi.equals(matKhauMoi2))
-//        {
-//            MsgBox.alert(this, "Xác Nhận Mật Khẩu Không Đúng");
-//        }else
-//        {
-//            Auth.user.setMatKhau(matKhauMoi);
-//            dao.update(Auth.user);
-//            MsgBox.alert(this, "Đổi Mật Khẩu Thành Công");
-//        }
-//    }
-//    
-    private void huyBo(){
+    NhanVienDAO dao = new NhanVienDAO();
+
+    private void doiMatKhau() {
+        String idNhanvien = txtMaNV.getText();
+        String matKhau = new String(txtMatKhau.getPassword());
+        String matKhauMoi = new String(txtMatKhauMoi.getPassword());
+        String matKhauMoi2 = new String(txtXacNhanMKM.getPassword());
+
+        if (!idNhanvien.equalsIgnoreCase(Auth.user.getIdNhanVien())) {
+            MsgBox.alert(this, "Sai Tên Đăng Nhập");
+        } else if (!matKhau.equals(Auth.user.getMatKhau())) {
+            MsgBox.alert(this, "Sai Mật Khẩu");
+        } else if (!matKhauMoi.equals(matKhauMoi2)) {
+            MsgBox.alert(this, "Xác Nhận Mật Khẩu Không Đúng");
+        } else {
+            Auth.user.setMatKhau(matKhauMoi);
+            dao.update(Auth.user);
+            MsgBox.alert(this, "Đổi Mật Khẩu Thành Công");
+            this.dispose();
+        }
+    }
+
+    private void huyBo() {
         this.dispose();
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,7 +86,6 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
         btnXacNhan.setBackground(new java.awt.Color(51, 51, 255));
         btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnXacNhan.setForeground(new java.awt.Color(255, 255, 255));
-        btnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Accept.png"))); // NOI18N
         btnXacNhan.setText("Xác nhận");
         btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,10 +95,15 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Xác nhận mật khẩu mới");
 
+        txtMatKhau.setName("Mật Khẩu Hiện Tại"); // NOI18N
+
+        txtMatKhauMoi.setName("Mật Khẩu Mới"); // NOI18N
+
+        txtXacNhanMKM.setName("Xác Nhận Mật Khẩu Mới"); // NOI18N
+
         jButton2.setBackground(new java.awt.Color(255, 153, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/No.png"))); // NOI18N
         jButton2.setText("Hủy");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,14 +172,17 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-//        doiMatKhau();
+      if(Check.checkNullPassField(txtMatKhau)
+              && Check.checkNullPassField(txtMatKhauMoi)
+            && Check.checkNullPassField(txtXacNhanMKM)){
+          doiMatKhau();
+      }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         huyBo();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-   
+
     /**
      * @param args the command line arguments
      */
