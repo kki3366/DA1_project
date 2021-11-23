@@ -20,5 +20,6 @@ public class Auth {
     // kiểm tra vai trò
     public static boolean isManager(){
         return Auth.isLogin() && user.isVaiTro();
+        //hello world
     }
 }
