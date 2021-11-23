@@ -31,9 +31,7 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
         String matKhauMoi = new String(txtMatKhauMoi.getPassword());
         String matKhauMoi2 = new String(txtXacNhanMKM.getPassword());
 
-        if (!idNhanvien.equalsIgnoreCase(Auth.user.getIdNhanVien())) {
-            MsgBox.alert(this, "Sai Tên Đăng Nhập");
-        } else if (!matKhau.equals(Auth.user.getMatKhau())) {
+        if (!matKhau.equals(Auth.user.getMatKhau())) {
             MsgBox.alert(this, "Sai Mật Khẩu");
         } else if (!matKhauMoi.equals(matKhauMoi2)) {
             MsgBox.alert(this, "Xác Nhận Mật Khẩu Không Đúng");
