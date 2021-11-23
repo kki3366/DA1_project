@@ -166,7 +166,7 @@ public class mainFrame extends javax.swing.JFrame {
         popupMenu.add(jMenuItem15);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO");
+        setTitle("HỆ THỐNG KARAOKE");
 
         mainFrame.setBackground(new java.awt.Color(157, 189, 228));
         mainFrame.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,7 +191,7 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel1.setText("Hệ quản lý đào tạo");
+        jLabel1.setText("Hệ quản lý quán FKaraoke");
         jPanel1.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         lblDongHo.setForeground(new java.awt.Color(0, 51, 255));
