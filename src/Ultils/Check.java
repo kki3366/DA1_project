@@ -5,10 +5,22 @@
  */
 package Ultils;
 
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author pc
  */
 public class Check {
+    public static boolean checkNullTextField(JTextField jtxt) {
+        if (!jtxt.getText().trim().isEmpty()) {
+            return true;
+        } else {
+            MsgBox.alert(jtxt.getRootPane(), "Không được để trống" + " " + jtxt.getName());
+            return false;
+        }
+    }
     
+  
 }
