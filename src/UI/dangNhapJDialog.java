@@ -6,6 +6,9 @@ package UI;
  * and open the template in the editor.
  */
 import DAO.NhanVienDAO;
+import Entity.NhanVien;
+import Ultils.Auth;
+import Ultils.MsgBox;
 //import Enity.NhanVien;
 //import Utils.Auth;
 //import Utils.MsgBox;
@@ -28,29 +31,29 @@ public class dangNhapJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
     
-//    NhanVienDAO dao = new NhanVienDAO();
-//
-//    public void DangNhap() {
-//        String maNV = txtMaNV.getText();
-//        String matKhau = new String(txtMatKhau.getPassword());
-//        NhanVien nhanVien = dao.selectById(maNV);
-//        if(nhanVien == null){
-//            MsgBox.alert(this, "Sai Tên Đăng Nhập");
-//        }else if(!matKhau.equals(nhanVien.getMatKhau())){
-//            MsgBox.alert(this, "Sai Mật Khẩu");
-//        }else
-//        {
-//            Auth.user = nhanVien;
-//            System.out.println("Đăng Nhập thành Công");
-//            this.dispose();
-//        }
-//    }
-//
-//    void ketThuc() {
-//        if (MsgBox.confirm(this, "Bạn Muốn Kết Thúc")) {
-//            System.exit(0);
-//        }
-//    }
+    
+    
+    NhanVienDAO dao = new NhanVienDAO();
+    public void DangNhap(){
+         String maNV = txtMaNV.getText();
+        String matKhau = new String(txtMatKhau.getPassword());
+        NhanVien nhanVien = dao.selectById(maNV);
+        if(nhanVien == null){
+            MsgBox.alert(this, "Sai Tên Đăng Nhập");
+        }else if(!matKhau.equals(nhanVien.getMatKhau())){
+            MsgBox.alert(this, "Sai Mật Khẩu");
+        }else
+        {
+            Auth.user = nhanVien;
+            System.out.println("Đăng Nhập thành Công");
+            this.dispose();
+        }
+    }
+    void ketThuc() {
+        if (MsgBox.confirm(this, "Bạn Muốn Kết Thúc")) {
+            System.exit(0);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,19 +85,7 @@ public class dangNhapJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Tên đăng nhập");
 
-        txtMaNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaNVActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Mật khẩu");
-
-        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatKhauActionPerformed(evt);
-            }
-        });
 
         btnDangNhap.setBackground(new java.awt.Color(51, 51, 255));
         btnDangNhap.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -172,20 +163,12 @@ public class dangNhapJDialog extends javax.swing.JDialog {
 
 
     private void btnKetThucDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucDangNhapActionPerformed
-//        this.ketThuc();
+        this.ketThuc();
     }//GEN-LAST:event_btnKetThucDangNhapActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-//        this.DangNhap();
+        this.DangNhap();
     }//GEN-LAST:event_btnDangNhapActionPerformed
-
-    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatKhauActionPerformed
-
-    private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaNVActionPerformed
 
     /**
      * @param args the command line arguments
