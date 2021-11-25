@@ -20,7 +20,7 @@ public class MsgBox {
     */
     public static void alert(Component parent, String message)
     {
-        JOptionPane.showMessageDialog(parent, message, "Hệ Thống Quản Lý Đào Tạo",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message, "Hệ Thống Quản Lý FKaraoke",JOptionPane.INFORMATION_MESSAGE);
     }
      /* hàm confirm
     @params: Component để gọi đối tượng của frame cha
@@ -28,7 +28,7 @@ public class MsgBox {
     dùng để thông báo lựa chọn yes no
     */
     public static boolean confirm(Component parent, String message){
-        int result = JOptionPane.showConfirmDialog(parent, message, "Hệ Thống Quản Lý Đào Tạo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(parent, message, "Hệ Thống Quản Lý FKaraoke",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         return result == JOptionPane.YES_OPTION;
     }
       /* hàm prompt
@@ -37,6 +37,6 @@ public class MsgBox {
     dùng để thông báo nhập nội dung vào input
     */
     public static String prompt(Component parent, String message){
-        return JOptionPane.showInputDialog(parent, message, "Hệ Thống Quản Lý Đào Tạo", JOptionPane.INFORMATION_MESSAGE);
+        return JOptionPane.showInputDialog(parent, message, "Hệ Thống Quản Lý FKaraoke", JOptionPane.INFORMATION_MESSAGE);
     }
 }
