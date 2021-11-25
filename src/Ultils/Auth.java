@@ -22,4 +22,8 @@ public class Auth {
         return Auth.isLogin() && user.isVaiTro();
         //hello world
     }
+    
+     public void clear(){
+        Auth.user = null;
+    }
 }
