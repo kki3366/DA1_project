@@ -5,22 +5,17 @@ import Entity.NhanVien;
 import Ultils.Auth;
 import Ultils.Check;
 import Ultils.MsgBox;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-//
-//import DAO.nhanVienDAO;
-//import java.util.List;
-//
-//import javax.swing.table.DefaultTableModel;
-//
-//import Entity.NhanVien;
-//import Utils.Auth;
-//import Utils.MsgBox;
+
 /**
  *
- * @author Nghiptpc00940 Ngày 04/10/2021
+ * @author khoa
  */
 public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
 
@@ -276,19 +271,52 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
     }
 //    
 
+    public String SHA_512(String passwordToHash, String salt) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                    sb.append(String.format("*", bytes[i]));
+            }
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
+
     //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
     public void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel(); //tạo 1 model cho bảng nhân viên
         model.setRowCount(0); // xóa tất cả các hàng trên bảng nhân viên
+
         try {
             List<NhanVien> list = dao.selectAll();//đọc cơ sở dữ liệu từ CSDL
             for (NhanVien nv : list) {
-                Object[] row = {nv.getIdNhanVien(), nv.getMatKhau(), nv.getHoTen(), nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
-                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
+                if (!Auth.isManager()) {
+                    Object[] row = {nv.getIdNhanVien(),
+                        SHA_512(nv.getMatKhau(), "5"),
+                        
+                        nv.getHoTen(),
+                        nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
+                    model.addRow(row); //thêm 1 hàng vào bảng nhân viên
+                } else {
+                    Object[] row = {nv.getIdNhanVien(),
+                        nv.getMatKhau(),
+                        nv.getHoTen(),
+                        nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
+                    model.addRow(row); //thêm 1 hàng vào bảng nhân viên 
+                }
+
             }
         } catch (Exception e) {
             MsgBox.alert(this, "Lỗi Truy Vấn Dữ Liệu");
         }
+
     }
 
     //Tạo hàm setForm
@@ -386,7 +414,8 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
         }
 
     }
-     public boolean checkTrungMa(JTextField jtxt) {
+
+    public boolean checkTrungMa(JTextField jtxt) {
 
         if (dao.selectById(jtxt.getText()) == null) {
             return true;
@@ -423,36 +452,35 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
 
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-       if (Check.checkNullTextField(txtMaNV)
+        if (Check.checkNullTextField(txtMaNV)
                 && Check.checkNullTextField(txtMatKhau)
                 && Check.checkNullTextField(txtXacNhanMK)
-                && Check.checkNullTextField(txtHoTen)
-                ) {
-            if(!txtMatKhau.getPassword().equals(txtXacNhanMK.getPassword())){
-                if(checkTrungMa(txtMaNV)){
+                && Check.checkNullTextField(txtHoTen)) {
+            if (!txtMatKhau.getPassword().equals(txtXacNhanMK.getPassword())) {
+                if (checkTrungMa(txtMaNV)) {
                     insert();
                 }
-               
-            }else{
+
+            } else {
                 MsgBox.alert(this, "Mật khẩu không khớp");
             }
-            
+
         }
-    
+
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    
+
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.delete();
-      
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-           this.clearForm();
+        this.clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
 
@@ -481,7 +509,4 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField txtXacNhanMK;
     // End of variables declaration//GEN-END:variables
 
-    
-
-    
 }
