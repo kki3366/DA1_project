@@ -45,8 +45,11 @@ public class dangNhapJDialog extends javax.swing.JDialog {
         }else
         {
             Auth.user = nhanVien;
+           
             System.out.println("Đăng Nhập thành Công");
+           
             this.dispose();
+             MsgBox.alert(this, "Xin Chào "+ Auth.user.getHoTen() +", bạn đã đăng nhập thành công");
         }
     }
     void ketThuc() {
