@@ -30,6 +30,8 @@ public class mainFrame extends javax.swing.JFrame {
     public mainFrame() {
         initComponents();
         init();
+        
+       
     }
 
     void init() {
@@ -45,7 +47,8 @@ public class mainFrame extends javax.swing.JFrame {
             }
         }).start();
         new ChaoJDialog(this, true).setVisible(true);
-
+          
+       
     }
 
     public void OpenFrameAnother(JInternalFrame x) {
@@ -183,7 +186,7 @@ public class mainFrame extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         menuUserName = new javax.swing.JMenu();
-        menuUser = new javax.swing.JMenu();
+        menuThongKe1 = new javax.swing.JMenu();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
 
@@ -298,7 +301,7 @@ public class mainFrame extends javax.swing.JFrame {
             .addGroup(mainFrameLayout.createSequentialGroup()
                 .addGap(163, 163, 163)
                 .addComponent(txtname)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addContainerGap(406, Short.MAX_VALUE))
         );
 
         getContentPane().add(mainFrame, java.awt.BorderLayout.CENTER);
@@ -431,11 +434,12 @@ public class mainFrame extends javax.swing.JFrame {
         menuUserName.setMargin(new java.awt.Insets(5, 5, 5, 5));
         menuBar.add(menuUserName);
 
-        menuUser.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        menuUser.add(jSeparator5);
-        menuUser.add(jSeparator8);
+        menuThongKe1.setText("Thống kê");
+        menuThongKe1.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        menuThongKe1.add(jSeparator5);
+        menuThongKe1.add(jSeparator8);
 
-        menuBar.add(menuUser);
+        menuBar.add(menuThongKe1);
 
         setJMenuBar(menuBar);
 
@@ -545,6 +549,7 @@ public class mainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainFrame().setVisible(true);
+              
             }
         });
     }
@@ -573,7 +578,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuSanPham;
     private javax.swing.JMenu menuThongKe;
-    private javax.swing.JMenu menuUser;
+    private javax.swing.JMenu menuThongKe1;
     private javax.swing.JMenu menuUserName;
     private javax.swing.JMenuItem mniDangNhap;
     private javax.swing.JMenuItem mniDangXuat;

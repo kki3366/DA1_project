@@ -304,8 +304,9 @@
             </Property>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuUser">
+        <Menu class="javax.swing.JMenu" name="menuThongKe1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[5, 5, 5, 5]"/>
             </Property>
@@ -377,7 +378,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
                   <Component id="txtname" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="420" max="32767" attributes="0"/>
+                  <EmptySpace pref="406" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
