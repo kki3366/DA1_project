@@ -8,10 +8,10 @@ import Ultils.MsgBox;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -25,6 +25,7 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
     public nhanVienJInternalFrame() {
         initComponents();
         init();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -271,24 +272,6 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
     }
 //    
 
-    public String SHA_512(String passwordToHash, String salt) {
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-                    sb.append(String.format("*", bytes[i]));
-            }
-            generatedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return generatedPassword;
-    }
-
     //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
     public void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel(); //tạo 1 model cho bảng nhân viên
@@ -296,21 +279,20 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
 
         try {
             List<NhanVien> list = dao.selectAll();//đọc cơ sở dữ liệu từ CSDL
+            Base64.Encoder encoder = Base64.getEncoder();
             for (NhanVien nv : list) {
+                String matkhau = null;
                 if (!Auth.isManager()) {
-                    Object[] row = {nv.getIdNhanVien(),
-                        SHA_512(nv.getMatKhau(), "5"),
-                        
-                        nv.getHoTen(),
-                        nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
-                    model.addRow(row); //thêm 1 hàng vào bảng nhân viên
+                    matkhau = encoder.encodeToString(nv.getMatKhau().getBytes());
+
                 } else {
-                    Object[] row = {nv.getIdNhanVien(),
-                        nv.getMatKhau(),
-                        nv.getHoTen(),
-                        nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
-                    model.addRow(row); //thêm 1 hàng vào bảng nhân viên 
+                    matkhau = nv.getMatKhau();
                 }
+                Object[] row = {nv.getIdNhanVien(),
+                    matkhau,
+                    nv.getHoTen(),
+                    nv.isVaiTro() ? "Quản Lý" : "Nhân viên"};
+                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
 
             }
         } catch (Exception e) {
