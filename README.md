@@ -12,4 +12,4 @@ Cơ Sở dữ liệu
 + Lớp JDBC
 + Thực thể: NhanVien,Phong
 + DAO: NhanVien,Phong
-+ Các Frame : Đăng Nhập, Main, đổi mật khẩu, phòng, đặt phòng, sản phẩm, nhân viên
++ Các Frame : Đăng Nhập, Main, đổi mật khẩu, phòng, đặt phòng, sản phẩm, nhân viên, quên mật khẩu
