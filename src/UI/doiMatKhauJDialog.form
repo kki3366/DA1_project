@@ -99,7 +99,7 @@
           <Color blue="33" green="66" red="0" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1ed4;I M&#x1eac;T KH&#x1ea8;U"/>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1ed4;i M&#x1ead;t Kh&#x1ea9;u"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

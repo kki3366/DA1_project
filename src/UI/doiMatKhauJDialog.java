@@ -71,7 +71,7 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ĐỔI MẬT KHẨU");
+        jLabel1.setText("ĐỔi Mật Khẩu");
 
         jLabel2.setText("Tên đăng nhập");
 
