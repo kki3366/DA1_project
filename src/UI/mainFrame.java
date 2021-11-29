@@ -79,11 +79,15 @@ public class mainFrame extends javax.swing.JFrame {
 
     void LogOut() {
 
-        if (MsgBox.confirm(this, "Bạn Muốn Đăng Xuất ?")) {
+      if(Auth.isLogin()){
+            if (MsgBox.confirm(this, "Bạn Muốn Đăng Xuất ?")) {
             Auth auth = new Auth();
             auth.clear();
             MsgBox.alert(this, "Bạn Đăng Xuất Thành Công");
         }
+      }else{
+          MsgBox.alert(this, "Bạn chưa đăng nhập");
+      }
     }
 //
 
@@ -127,6 +131,10 @@ public class mainFrame extends javax.swing.JFrame {
         } else {
             MsgBox.alert(this, "Vui Lòng Đăng Nhập");
         }
+    }
+    
+    void OpenQuenMatKhau(){
+        new quenMatKhauJDialog(this, true).setVisible(true);
     }
 
     /**
@@ -174,6 +182,7 @@ public class mainFrame extends javax.swing.JFrame {
         mniDangXuat = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mniDoiMatKhau = new javax.swing.JMenuItem();
+        mniQuenMatKhau = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mniKetThuc = new javax.swing.JMenuItem();
         menuSanPham = new javax.swing.JMenu();
@@ -320,6 +329,11 @@ public class mainFrame extends javax.swing.JFrame {
 
         mnuHeThong.setText("Hệ thống");
         mnuHeThong.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mnuHeThong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuHeThongActionPerformed(evt);
+            }
+        });
 
         mniDangNhap.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniDangNhap.setText("Đăng nhập");
@@ -350,6 +364,15 @@ public class mainFrame extends javax.swing.JFrame {
             }
         });
         mnuHeThong.add(mniDoiMatKhau);
+
+        mniQuenMatKhau.setText("Quên mật khẩu");
+        mniQuenMatKhau.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniQuenMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuenMatKhauActionPerformed(evt);
+            }
+        });
+        mnuHeThong.add(mniQuenMatKhau);
         mnuHeThong.add(jSeparator2);
 
         mniKetThuc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -515,6 +538,14 @@ public class mainFrame extends javax.swing.JFrame {
         LogOut();
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
+    private void mniQuenMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuenMatKhauActionPerformed
+        OpenQuenMatKhau();
+    }//GEN-LAST:event_mniQuenMatKhauActionPerformed
+
+    private void mnuHeThongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHeThongActionPerformed
+
+    }//GEN-LAST:event_mnuHeThongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -588,6 +619,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniLuongNguoiHoc;
     private javax.swing.JMenuItem mniPhong;
     private javax.swing.JMenuItem mniQuanLyNhanVien;
+    private javax.swing.JMenuItem mniQuenMatKhau;
     private javax.swing.JMenuItem mniSanPham;
     private javax.swing.JMenu mnuHeThong;
     private javax.swing.JPopupMenu popupMenu;
