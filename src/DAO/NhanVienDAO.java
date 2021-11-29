@@ -72,5 +72,6 @@ public class NhanVienDAO extends DAO<NhanVien, String> {
         }
 
     }
+    
 
 }
