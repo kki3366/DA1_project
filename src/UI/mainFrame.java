@@ -136,6 +136,15 @@ public class mainFrame extends javax.swing.JFrame {
     void OpenQuenMatKhau(){
         new quenMatKhauJDialog(this, true).setVisible(true);
     }
+    
+    void OpenKhachHang(){
+        if (Auth.isLogin()) {
+            khachHangJInternalFrame khachHang = new khachHangJInternalFrame();
+            OpenFrameAnother(khachHang);
+        } else {
+            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,6 +199,7 @@ public class mainFrame extends javax.swing.JFrame {
         mniDatPhong = new javax.swing.JMenuItem();
         mniSanPham = new javax.swing.JMenuItem();
         mniQuanLyNhanVien = new javax.swing.JMenuItem();
+        mniQuanLyKhachHang = new javax.swing.JMenuItem();
         menuThongKe = new javax.swing.JMenu();
         mniLuongNguoiHoc = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -435,6 +445,16 @@ public class mainFrame extends javax.swing.JFrame {
         });
         menuSanPham.add(mniQuanLyNhanVien);
 
+        mniQuanLyKhachHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniQuanLyKhachHang.setText("Quản lý khách hàng");
+        mniQuanLyKhachHang.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniQuanLyKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniQuanLyKhachHangActionPerformed(evt);
+            }
+        });
+        menuSanPham.add(mniQuanLyKhachHang);
+
         menuBar.add(menuSanPham);
 
         menuThongKe.setText("Thống kê");
@@ -546,6 +566,10 @@ public class mainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_mnuHeThongActionPerformed
 
+    private void mniQuanLyKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyKhachHangActionPerformed
+        OpenKhachHang();
+    }//GEN-LAST:event_mniQuanLyKhachHangActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -618,6 +642,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniKetThuc;
     private javax.swing.JMenuItem mniLuongNguoiHoc;
     private javax.swing.JMenuItem mniPhong;
+    private javax.swing.JMenuItem mniQuanLyKhachHang;
     private javax.swing.JMenuItem mniQuanLyNhanVien;
     private javax.swing.JMenuItem mniQuenMatKhau;
     private javax.swing.JMenuItem mniSanPham;
