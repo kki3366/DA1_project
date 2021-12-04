@@ -7,9 +7,14 @@ package DAO;
 
 import Entity.KhachHang;
 import helper.JDBCHelper;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,6 +27,7 @@ public class KhachHangDAO extends DAO<KhachHang, String> {
     final String DELETE_CUSTOMER = "DELETE FROM KhachHang WHERE IDKhachHang=?";
     final String SELECT_ALL_CUSTOMER = "SELECT * FROM KhachHang";
     final String SELECT_BY_ID_CUSTOMER = "SELECT * FROM NguoiHoc WHERE IDKhachHang=?";
+    final String AUTO_ID ="SELECT MAX(IDKhachHang) as idKhachHang from KhachHang";
 
     @Override
     public void insert(KhachHang enity) {
@@ -69,6 +75,24 @@ public class KhachHangDAO extends DAO<KhachHang, String> {
             return list;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
+        }
+    }
+    
+    public void AutoIDKhachHang(JTextField jtxf){
+        try {
+            ResultSet rs;
+            rs = JDBCHelper.query(AUTO_ID);
+            rs.next();
+            rs.getString("idKhachHang");
+            if(rs.getString("idKhachHang")== null){
+                jtxf.setText("KH000");
+            }else{
+                Long id = Long.parseLong(rs.getString("idKhachHang").substring(2, rs.getString("idKhachHang").length()));
+                id++;
+                jtxf.setText("KH00" + String.format("%1d", id));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
