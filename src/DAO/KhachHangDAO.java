@@ -26,7 +26,7 @@ public class KhachHangDAO extends DAO<KhachHang, String> {
     final String UPDATE_CUSTOMER = "UPDATE KhachHang SET HoTen=?, SDTKhachHang=?, IDNhanVien=? WHERE IDKhachHang=?";
     final String DELETE_CUSTOMER = "DELETE FROM KhachHang WHERE IDKhachHang=?";
     final String SELECT_ALL_CUSTOMER = "SELECT * FROM KhachHang";
-    final String SELECT_BY_ID_CUSTOMER = "SELECT * FROM NguoiHoc WHERE IDKhachHang=?";
+    final String SELECT_BY_ID_CUSTOMER = "SELECT * FROM KhachHang WHERE IDKhachHang=?";
     final String AUTO_ID ="SELECT MAX(IDKhachHang) as idKhachHang from KhachHang";
 
     @Override
