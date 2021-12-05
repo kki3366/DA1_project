@@ -21,10 +21,11 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
     public khachHangJInternalFrame() {
         initComponents();
         init();
-       autoIDKhachHang();
+        autoIDKhachHang();
+        txtMaNhanVien.setText(Auth.user.getIdNhanVien());
     }
-    
-    void autoIDKhachHang(){
+
+    void autoIDKhachHang() {
         KhachHangDAO dao = new KhachHangDAO();
         dao.AutoIDKhachHang(txtMaKhachHang);
     }
@@ -83,12 +84,14 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Mã Khách Hàng");
 
+        txtMaKhachHang.setEditable(false);
         txtMaKhachHang.setName("Mã nhân viên"); // NOI18N
 
         jLabel3.setText("Họ Tên");
 
         jLabel4.setText("SDT Khách Hàng");
 
+        txtMaNhanVien.setEditable(false);
         txtMaNhanVien.setName("Họ và tên"); // NOI18N
 
         jLabel5.setText("Mã Nhân Viên");
@@ -122,6 +125,15 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
+            }
+        });
+
+        txtHoTen.setName("Họ Tên"); // NOI18N
+
+        txtSDTKhachHang.setName("SDT Khách Hàng"); // NOI18N
+        txtSDTKhachHang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSDTKhachHangKeyPressed(evt);
             }
         });
 
@@ -282,99 +294,25 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
 
     public KhachHang getForm() {
         KhachHang kh = new KhachHang();
+        kh.setIdKhachHang(txtMaKhachHang.getText());
         kh.setHoTen(txtHoTen.getText());
         kh.setSDTKhachHang(txtSDTKhachHang.getText());
-        
-
+        kh.setIdNhanVien(txtMaNhanVien.getText());
         return kh;
     }
 ////        
 //
-//    public void clearForm() {
-//        NhanVien nv = new NhanVien();
-//        this.setForm(nv);
-//        this.row = -1;
-//        this.updateStatus();
-//    }
-////        
-//
-//    public void edit() {
-//        String manv = (String) tblKhachHang.getValueAt(this.row, 0);
-//        NhanVien nv = dao.selectById(manv);
-//        this.setForm(nv);
-//        tabs.setSelectedIndex(0);
-//        this.updateStatus();
-//    }
-////        
-//
-//    public void insert() {
-//        NhanVien nv = getForm();
-//        String mk2 = new String(txtSDTKhachHang.getPassword());
-//        if (!mk2.equals(nv.getMatKhau())) {
-//            MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//            txtSDTKhachHang.requestFocus();
-//        } else {
-//            try {
-//                dao.insert(nv);
-//                this.fillTable();
-//                this.clearForm();
-//                MsgBox.alert(this, "Thêm Mới Thành Công");
-//            } catch (Exception e) {
-//                MsgBox.alert(this, "Thêm Mới Thất Bại");
-//            }
-//        }
-//    }
-////        
-//
-//    public void update() {
-//        NhanVien nv = getForm();
-//        String mk2 = new String(txtSDTKhachHang.getPassword());
-//        if (!mk2.equals(nv.getMatKhau())) {
-//            MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//            txtSDTKhachHang.requestFocus();
-//        } else {
-//            try {
-//                dao.update(nv);
-//                this.fillTable();
-//                MsgBox.alert(this, "Cập Nhật Thành Công");
-//            } catch (Exception e) {
-//                MsgBox.alert(this, "Cập Nhật Thất Bại");
-//            }
-//        }
-//    }
-//        
 
-//    public void delete() {
-//        if (!Auth.isManager()) {
-//            MsgBox.alert(this, "Bạn Không Có Quyền Xóa Nhân Viên");
-//        } else {
-//            String manv = txtMaKhachHang.getText();
-//            if (manv.equals(Auth.user.getIdNhanVien())) {
-//                MsgBox.alert(this, "Không Được Xóa Chính Bạn!");
-//            } else if (MsgBox.confirm(this, "Bạn Thực Sự Muốn Xóa Nhân Viên Này?")) {
-//                try {
-//                    dao.delete(manv);
-//                    this.fillTable();
-//                    this.clearForm();
-//                    MsgBox.alert(this, "Xóa Thành Công!");
-//                } catch (Exception e) {
-//                    MsgBox.alert(this, "Xóa Thất Bại!");
-//                }
-//            }
-//        }
-//
-//    }
-
-    public boolean checkTrungMa(JTextField jtxt) {
-
-        if (dao.selectById(jtxt.getText()) == null) {
-            return true;
-        } else {
-
-            MsgBox.alert(this, jtxt.getName() + " đã bị tồn tại.");
-            return false;
-        }
+    public void clearForm() {
+        KhachHang kh = new KhachHang();
+        this.setForm(kh);
+        this.row = -1;
+        this.autoIDKhachHang();
+        txtMaNhanVien.setText(Auth.user.getIdNhanVien());
+        this.updateStatus();
     }
+////        
+//
 
     public void updateStatus() {
         boolean edit = (this.row >= 0);
@@ -386,50 +324,111 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
 
     }
 
+    public void edit() {
+        String makh = (String) tblKhachHang.getValueAt(this.row, 0);
+
+        KhachHang kh = dao.selectById(makh);
+
+        this.setForm(kh);
+        tabs.setSelectedIndex(0);
+        this.updateStatus();
+    }
+////        
+//
+
+    public void insert() {
+        KhachHang kh = getForm();
+        try {
+            dao.insert(kh);
+            this.fillTable();
+            this.clearForm();
+            MsgBox.alert(this, "Thêm thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Thêm Thất Bại");
+        }
+    }
+////        
+//
+
+    public void update() {
+        KhachHang kh = getForm();
+        try {
+            String makh = txtMaKhachHang.getText();
+            kh.setIdKhachHang(makh);
+            dao.update(kh);
+            this.fillTable();
+            MsgBox.alert(this, "Cập Nhật Thành Công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập Nhật Thất Bại");
+        }
+    }
+//        
+
+    public void delete() {
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Bạn Không Đủ Thẩm Quyền");
+        } else if (MsgBox.confirm(this, "Bạn có muốn xóa?")) {
+            try {
+                String makh = txtMaKhachHang.getText();
+                dao.delete(makh);
+                this.fillTable();
+                this.clearForm();
+                MsgBox.alert(this, "Xóa Thành Công");
+            } catch (Exception ex) {
+                MsgBox.alert(this, "Xóa Thất Bại");
+                ex.printStackTrace();
+            }
+        }
+
+    }
+
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-//        if (evt.getClickCount() == 2) {
-//            this.row = tblKhachHang.getSelectedRow();
-//            this.edit();
-//        }
+        if (evt.getClickCount() == 2) {
+            this.row = tblKhachHang.getSelectedRow();
+            this.edit();
+        }
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-//        if (Check.checkNullTextField(txtMaKhachHang)
-//                && Check.checkNullTextField(txtHoTen)
-//                && Check.checkNullTextField(txtSDTKhachHang)
-//                && Check.checkNullTextField(txtMaNhanVien)) {
-//            if (!txtHoTen.getPassword().equals(txtSDTKhachHang.getPassword())) {
-//                if (checkTrungMa(txtMaKhachHang)) {
-//                    insert();
-//                }
-//
-//            } else {
-//                MsgBox.alert(this, "Mật khẩu không khớp");
-//            }
-//
-//        }
+        if (Check.checkNullTextField(txtHoTen) && Check.checkNullTextField(txtSDTKhachHang)) {
+            this.insert();
+        }
 
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//        this.update();
+        if (Check.checkNullTextField(txtHoTen) && Check.checkNullTextField(txtSDTKhachHang)) {
+            this.update();
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        this.delete();
+        this.delete();
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-//        this.clearForm();
+        this.clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtSDTKhachHangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKhachHangKeyPressed
+
+        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
+            
+        } else {
+            MsgBox.alert(this, "SDT phải là số");
+            txtSDTKhachHang.setText("");
+        }
+
+    }//GEN-LAST:event_txtSDTKhachHangKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

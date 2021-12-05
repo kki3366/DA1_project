@@ -152,6 +152,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaKhachHang">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="M&#xe3; nh&#xe2;n vi&#xea;n" noResource="true"/>
               </Properties>
             </Component>
@@ -167,6 +168,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaNhanVien">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n" noResource="true"/>
               </Properties>
             </Component>
@@ -220,8 +222,17 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtHoTen">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="H&#x1ecd; T&#xea;n" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtSDTKhachHang">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="SDT Kh&#xe1;ch H&#xe0;ng" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSDTKhachHangKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
