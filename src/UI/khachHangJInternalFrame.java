@@ -5,6 +5,7 @@ import Entity.KhachHang;
 import Ultils.Auth;
 import Ultils.Check;
 import Ultils.MsgBox;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +47,6 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         btnInsert = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         txtHoTen = new javax.swing.JTextField();
         txtSDTKhachHang = new javax.swing.JTextField();
@@ -112,14 +112,6 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnDelete.setText("Xóa");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnClear.setText("Mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +126,9 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
         txtSDTKhachHang.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSDTKhachHangKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSDTKhachHangKeyTyped(evt);
             }
         });
 
@@ -155,9 +150,7 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
                         .addComponent(btnInsert)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnClear)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditLayout.createSequentialGroup()
@@ -191,9 +184,8 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsert)
                     .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
                     .addComponent(btnClear))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         tabs.addTab("CẬP NHẬT", null, pnlEdit, "Cập nhật");
@@ -320,7 +312,6 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
         txtMaKhachHang.setEditable(!edit);
         btnInsert.setEnabled(!edit);
         btnUpdate.setEnabled(edit);
-        btnDelete.setEnabled(edit);
 
     }
 
@@ -365,24 +356,6 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
     }
 //        
 
-    public void delete() {
-        if (!Auth.isManager()) {
-            MsgBox.alert(this, "Bạn Không Đủ Thẩm Quyền");
-        } else if (MsgBox.confirm(this, "Bạn có muốn xóa?")) {
-            try {
-                String makh = txtMaKhachHang.getText();
-                dao.delete(makh);
-                this.fillTable();
-                this.clearForm();
-                MsgBox.alert(this, "Xóa Thành Công");
-            } catch (Exception ex) {
-                MsgBox.alert(this, "Xóa Thất Bại");
-                ex.printStackTrace();
-            }
-        }
-
-    }
-
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 
@@ -410,30 +383,30 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        this.delete();
-
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         this.clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtSDTKhachHangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKhachHangKeyPressed
-
-        if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
-            
-        } else {
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
             MsgBox.alert(this, "SDT phải là số");
             txtSDTKhachHang.setText("");
+        } else {
+
         }
 
     }//GEN-LAST:event_txtSDTKhachHangKeyPressed
 
+    private void txtSDTKhachHangKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKhachHangKeyTyped
+       if((txtSDTKhachHang.getText().length() >= 11) &&!(evt.getKeyChar()==KeyEvent.VK_DELETE||evt.getKeyChar()==KeyEvent.VK_BACK_SPACE)){
+          MsgBox.alert(this, "SDT chỉ 11 số");
+       }
+    }//GEN-LAST:event_txtSDTKhachHangKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
