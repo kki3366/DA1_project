@@ -22,10 +22,12 @@ public class PhongDAO extends DAO<Phong, String> {
     private final String DELETE_SQL = "DELETE FROM Phong WHERE IDPhong=?";
     private final String SELECT_ALL_SQL = "SELECT * FROM Phong";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM Phong WHERE IDPhong=?";
+    private final String SELECT_ALL_ISACTIVE = "select * from Phong where TrangThaiPhong = 0";
+    private final String SELECT_BY_NAMEROOM = "SELECT * FROM Phong WHERE TenPhong LIKE ?";
 
     @Override
     public void insert(Phong enity) {
-        JDBCHelper.update(INSERT_SQL, enity.getIDPhong(), enity.getTenPhong(), enity.isTrangThaiPhong(), enity.getGiaPhong(),enity.isLoaiPhong());
+        JDBCHelper.update(INSERT_SQL, enity.getIDPhong(), enity.getTenPhong(), enity.isTrangThaiPhong(), enity.getGiaPhong(), enity.isLoaiPhong());
     }
 
     @Override
@@ -67,6 +69,18 @@ public class PhongDAO extends DAO<Phong, String> {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public List<Phong> selectAll_isActive() {
+        return this.selectBySql(SELECT_ALL_ISACTIVE);
+    }
+
+    public Phong selectBynameRoom(String nameRoom) {
+        List<Phong> list = this.selectBySql(SELECT_BY_NAMEROOM, nameRoom);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
 }
