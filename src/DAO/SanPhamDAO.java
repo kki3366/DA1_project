@@ -74,7 +74,11 @@ public class SanPhamDAO {
     public SanPham selectById(String SP) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    
+    public void test(){
+        
+    }
     
     
 }
