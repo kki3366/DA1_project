@@ -1,53 +1,57 @@
 package UI;
 
-
-//
-//import DAO.nhanVienDAO;
-//import java.util.List;
-//
-//import javax.swing.table.DefaultTableModel;
-//
-//import Entity.NhanVien;
-//import Utils.Auth;
-//import Utils.MsgBox;
-
+import DAO.PhongDAO;
+import Entity.Phong;
+import Ultils.Auth;
+import Ultils.Check;
+import Ultils.MsgBox;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Nghiptpc00940
- * Ngày 04/10/2021
+ * @author pc
+ *
  */
 public class PhongJInternalFrame extends javax.swing.JInternalFrame {
-//     nhanVienDAO dao = new nhanVienDAO();
-     int row = 0;
+
+    int row = 0;
 
     public PhongJInternalFrame() {
         initComponents();
-//        init();
+        fillTable();
+        autoIdPhong();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         tabs = new javax.swing.JTabbedPane();
         pnlEdit = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTenPhong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtGiaPhong = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        rdoTruongPhong = new javax.swing.JRadioButton();
-        rdoNhanVien = new javax.swing.JRadioButton();
+        rdoVip = new javax.swing.JRadioButton();
+        rdoPhong = new javax.swing.JRadioButton();
         btnInsert = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        txtGiaPhong = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtIDPhong = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        rdoSudung = new javax.swing.JRadioButton();
+        rdoTrong = new javax.swing.JRadioButton();
         pnlList = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblNhanVien = new javax.swing.JTable();
+        tblQuanLyPhong = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -79,20 +83,18 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Tên Phòng");
 
-        txtTenPhong.setName("Mã nhân viên"); // NOI18N
+        txtTenPhong.setName("Tên Phòng"); // NOI18N
 
         jLabel3.setText("Giá Phòng");
 
-        txtGiaPhong.setName("Mật khẩu"); // NOI18N
-
         jLabel6.setText("Loại Phòng");
 
-        buttonGroup1.add(rdoTruongPhong);
-        rdoTruongPhong.setSelected(true);
-        rdoTruongPhong.setText("VIP");
+        buttonGroup1.add(rdoVip);
+        rdoVip.setSelected(true);
+        rdoVip.setText("VIP");
 
-        buttonGroup1.add(rdoNhanVien);
-        rdoNhanVien.setText("THƯỜNG");
+        buttonGroup1.add(rdoPhong);
+        rdoPhong.setText("THƯỜNG");
 
         btnInsert.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnInsert.setText("Thêm");
@@ -112,6 +114,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnDelete.setText("Xóa");
+        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -126,7 +129,27 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextField2.setText("jTextField2");
+        txtGiaPhong.setName("Giá Phòng"); // NOI18N
+        txtGiaPhong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtGiaPhongKeyPressed(evt);
+            }
+        });
+
+        jLabel4.setText("ID Phòng");
+
+        txtIDPhong.setEditable(false);
+
+        jLabel5.setText("Trạng Thái Phòng");
+
+        buttonGroup2.add(rdoSudung);
+        rdoSudung.setText("Đang sử dụng");
+        rdoSudung.setEnabled(false);
+
+        buttonGroup2.add(rdoTrong);
+        rdoTrong.setSelected(true);
+        rdoTrong.setText("Trống");
+        rdoTrong.setEnabled(false);
 
         javax.swing.GroupLayout pnlEditLayout = new javax.swing.GroupLayout(pnlEdit);
         pnlEdit.setLayout(pnlEditLayout);
@@ -137,18 +160,16 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTenPhong)
                     .addComponent(txtGiaPhong)
+                    .addComponent(txtIDPhong)
                     .addGroup(pnlEditLayout.createSequentialGroup()
                         .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlEditLayout.createSequentialGroup()
+                                .addComponent(rdoSudung)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdoTrong))
                             .addComponent(jLabel2)
-                            .addGroup(pnlEditLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
                             .addComponent(jLabel6)
-                            .addGroup(pnlEditLayout.createSequentialGroup()
-                                .addComponent(rdoTruongPhong)
-                                .addGap(18, 18, 18)
-                                .addComponent(rdoNhanVien))
                             .addGroup(pnlEditLayout.createSequentialGroup()
                                 .addComponent(btnInsert)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,7 +177,13 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClear)))
+                                .addComponent(btnClear))
+                            .addComponent(jLabel4)
+                            .addGroup(pnlEditLayout.createSequentialGroup()
+                                .addComponent(rdoVip)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdoPhong))
+                            .addComponent(jLabel5))
                         .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -164,35 +191,43 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
             pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEditLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtIDPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTenPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtGiaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoTruongPhong)
-                    .addComponent(rdoNhanVien))
-                .addGap(18, 18, 18)
+                    .addComponent(rdoSudung)
+                    .addComponent(rdoTrong))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdoVip)
+                    .addComponent(rdoPhong))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsert)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnClear))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         tabs.addTab("CẬP NHẬT", null, pnlEdit, "Cập nhật");
 
         pnlList.setLayout(new java.awt.BorderLayout());
 
-        tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuanLyPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -211,16 +246,16 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblNhanVien.setEditingRow(1);
-        tblNhanVien.setRowHeight(25);
-        tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblQuanLyPhong.setEditingRow(1);
+        tblQuanLyPhong.setRowHeight(25);
+        tblQuanLyPhong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblNhanVienMouseClicked(evt);
+                tblQuanLyPhongMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblNhanVien);
-        if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
-            tblNhanVien.getColumnModel().getColumn(2).setPreferredWidth(140);
+        jScrollPane1.setViewportView(tblQuanLyPhong);
+        if (tblQuanLyPhong.getColumnModel().getColumnCount() > 0) {
+            tblQuanLyPhong.getColumnModel().getColumn(2).setPreferredWidth(140);
         }
 
         pnlList.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -231,7 +266,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tabs)
         );
         layout.setVerticalGroup(
@@ -239,218 +274,180 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//    public void init(){
-//        tabs.setSelectedIndex(1);
-//        this.fillTable();
-//        this.row = -1;
-//        this.updateStatus();
-//    }
-//    
-    
- 
-    //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
-//        public void fillTable(){
-//            DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel(); //tạo 1 model cho bảng nhân viên
-//            model.setRowCount(0); // xóa tất cả các hàng trên bảng nhân viên
-//            try {
-//                List<NhanVien> list = dao.selectAll();//đọc cơ sở dữ liệu từ CSDL
-//                for(NhanVien nv : list){
-//                    Object[] row = {nv.getMaNV(),nv.getMatKhau(),nv.getHoTen(),nv.isVaiTro()?"Trưởng phòng":"Nhân viên"};
-//                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
-//                }
-//            } catch (Exception e) {
-//                MsgBox.alert(this, "Lỗi Truy Vấn Dữ Liệu");         
-//            }
-//        }
-        
-     //Tạo hàm setForm
-//        public void setForm(NhanVien nv){
-//            txtMaNV.setText(nv.getMaNV());
-//            txtHoTen.setText(nv.getHoTen());
-//            txtMatKhau.setText(nv.getMatKhau());
-//            txtXacNhanMK.setText(nv.getMatKhau());
-//            rdoTruongPhong.setSelected(nv.isVaiTro());
-//            rdoNhanVien.setSelected(!nv.isVaiTro());
-//        }
-        
-//        public NhanVien getForm(){
-//            NhanVien nv = new NhanVien();
-//            nv.setMaNV(txtMaNV.getText());
-//            nv.setHoTen(txtHoTen.getText());
-//            nv.setMatKhau(new String (txtMatKhau.getPassword()));
-//            nv.setVaiTro(rdoTruongPhong.isSelected());
-//            return nv;
-//        }
-//        
-//        public void clearForm(){
-//            NhanVien nv = new NhanVien();
-//            this.setForm(nv);
-//            this.row = -1;
-//            this.updateStatus();
-//        }
-//        
-//        public void edit(){
-//            String manv = (String)tblNhanVien.getValueAt(this.row, 0);
-//            NhanVien nv = dao.selectById(manv);
-//            this.setForm(nv);
-//            tabs.setSelectedIndex(0);
-//            this.updateStatus();
-//        }
-//        
-//        public void insert(){
-//            NhanVien nv = getForm();
-//            String mk2  = new String (txtXacNhanMK.getPassword());
-//            if(!mk2.equals(nv.getMatKhau())){
-//                MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//                txtXacNhanMK.requestFocus();
-//            }else{
-//                try {
-//                    dao.insert(nv);
-//                    this.fillTable();
-//                    this.clearForm();   
-//                    MsgBox.alert(this,"Thêm Mới Thành Công");
-//                } catch (Exception e) {
-//                    MsgBox.alert(this,"Thêm Mới Thất Bại");  
-//                }
-//            }
-//        }
-//        
-//        public void update(){
-//            NhanVien nv = getForm();
-//            String mk2  = new String (txtXacNhanMK.getPassword());
-//            if(!mk2.equals(nv.getMatKhau())){
-//                MsgBox.alert(this, "Xác Nhân Mật Khẩu Không Đúng");
-//                txtXacNhanMK.requestFocus();
-//            }else{
-//                try {
-//                    dao.update(nv);
-//                    this.fillTable();   
-//                    MsgBox.alert(this,"Cập Nhật Thành Công");
-//                } catch (Exception e) {
-//                    MsgBox.alert(this,"Cập Nhật Thất Bại");  
-//                }
-//            }
-//        }
-//        
-//         public void delete(){
-//             if(!Auth.isManager()){
-//                 MsgBox.alert(this, "Bạn Không Có Quyền Xóa Nhân Viên");
-//             }else{
-//                 String manv = txtMaNV.getText();
-//                 if(manv.equals(Auth.user.getMaNV())){
-//                     MsgBox.alert(this, "Không Được Xóa Chính Bạn!");
-//                 }else if(MsgBox.confirm(this, "Bạn Thực Sự Muốn Xóa Nhân Viên Này?")){
-//                     try {
-//                         dao.delete(manv);
-//                         this.fillTable();
-//                         this.clearForm();
-//                         MsgBox.alert(this, "Xóa Thành Công!");
-//                     } catch (Exception e) {
-//                         MsgBox.alert(this, "Xóa Thất Bại!");
-//                     }
-//                 }
-//             }
-//            
-//        }
-//         
-//        public void first(){
-//            this.row = 0;
-//            this.edit();
-//        }
-//        
-//        public void next(){
-//            if(this.row < tblNhanVien.getRowCount()-1){
-//                this.row++;
-//                this.edit();
-//            }
-//        }
-//        
-//        public void prev(){
-//            if(this.row>0){
-//                this.row--;
-//                this.edit();
-//            }
-//        }
-//       
-//        public void last(){
-//            this.row =tblNhanVien.getRowCount() -1;
-//            this.edit();
-//        }
-//        
-//        public void updateStatus(){
-//            boolean edit = (this.row>= 0);
-//            boolean first = (this.row == 0);
-//            boolean last = ( this.row == tblNhanVien.getRowCount() -1 );
-//            //trạng thái form
-//            txtMaNV.setEditable(!edit);
-//            btnInsert.setEnabled(!edit);
-//            btnUpdate.setEnabled(edit);
-//            btnDelete.setEnabled(edit);
-//            
-//            //trạng thái điều hướng
-//            
-//            btnFirst.setEnabled(edit && !first);
-//            btnPrev.setEnabled(edit && !first);
-//            btnNext.setEnabled(edit && !last);
-//            btnLast.setEnabled(edit && !last);
-//        }
-//         
-//        
-           
 
-   
+    PhongDAO pdao = new PhongDAO();
+
+    void autoIdPhong() {
+
+        pdao.AutoIDPhong(txtIDPhong);
+    }
+
+    //Tạo hàm fill table để đưa dữ liệu vào bên trong bảng
+    public void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblQuanLyPhong.getModel(); //tạo 1 model cho bảng nhân viên
+        model.setRowCount(0); // xóa tất cả các hàng trên bảng nhân viên
+        try {
+            List<Phong> list = pdao.selectAll();//đọc cơ sở dữ liệu từ CSDL
+            for (Phong p : list) {
+                Object[] row = {p.getIDPhong(), p.getTenPhong(), p.getGiaPhong(), p.isTrangThaiPhong() ? "Đang sử dụng" : "Trống", p.isLoaiPhong() ? "VIP" : "Thường"};
+                model.addRow(row); //thêm 1 hàng vào bảng nhân viên
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi Truy Vấn Dữ Liệu");
+            e.printStackTrace();
+        }
+    }
+
+    //Tạo hàm setForm
+    public void setForm(Phong p) {
+        txtIDPhong.setText(p.getIDPhong());
+        txtTenPhong.setText(p.getTenPhong());
+        txtGiaPhong.setText(String.valueOf(p.getGiaPhong()));
+        rdoSudung.setSelected(p.isTrangThaiPhong());
+        rdoTrong.setSelected(!p.isTrangThaiPhong());
+        rdoVip.setSelected(p.isLoaiPhong());
+        rdoPhong.setSelected(!p.isLoaiPhong());
+    }
+
+    public Phong getForm() {
+        Phong p = new Phong();
+        p.setIDPhong(txtIDPhong.getText());
+        p.setTenPhong(txtTenPhong.getText());
+        p.setGiaPhong(Integer.parseInt(txtGiaPhong.getText()));
+        p.setTrangThaiPhong(rdoTrong.isSelected());
+        p.setLoaiPhong(rdoVip.isSelected());
+        return p;
+    }
+//        
+
+    public void clearForm() {
+        Phong p = new Phong();
+        this.setForm(p);
+        txtGiaPhong.setText("");
+        autoIdPhong();
+        this.row = -1;
+        this.updateStatus();
+    }
+//        
+
+    public void edit() {
+        String maP = (String) tblQuanLyPhong.getValueAt(this.row, 0);
+        Phong nv = pdao.selectById(maP);
+        this.setForm(nv);
+        tabs.setSelectedIndex(0);
+        this.updateStatus();
+    }
+
+    public void insert() {
+        Phong p = getForm();
+        try {
+            pdao.insert(p);
+            this.fillTable();
+            this.clearForm();
+            MsgBox.alert(this, "Thêm Mới Thành Công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Thêm Mới Thất Bại");
+            e.printStackTrace();
+        }
+
+    }
+//        
+
+    public void update() {
+        Phong p = getForm();
+        try {
+            pdao.update(p);
+            this.fillTable();
+            this.clearForm();
+            MsgBox.alert(this, "Cập Nhật Thành Công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập Nhật Thất Bại");
+        }
+
+    }
+//        
+
+    public void delete() {
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Bạn Không Đủ Thẩm Quyền");
+        } else if (MsgBox.confirm(this, "Bạn có muốn xóa?")) {
+            try {
+                String maP = txtIDPhong.getText();
+                pdao.delete(maP);
+                this.fillTable();
+                this.clearForm();
+                MsgBox.alert(this, "Xóa Thành Công");
+            } catch (Exception ex) {
+                MsgBox.alert(this, "Xóa Thất Bại");
+                ex.printStackTrace();
+            }
+        }
+
+    }
+//         
+
+//        
+    public void updateStatus() {
+        boolean edit = (this.row >= 0);
+        //trạng thái form
+        btnInsert.setEnabled(!edit);
+        btnUpdate.setEnabled(edit);
+        btnDelete.setEnabled(edit);
+
+    }
+//         
+//        
+
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-//                 if(evt.getClickCount() == 2){
-//                     this.row = tblNhanVien.getSelectedRow();
-//                     this.edit();
-//                 }
-    }//GEN-LAST:event_tblNhanVienMouseClicked
+    private void tblQuanLyPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanLyPhongMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.row = tblQuanLyPhong.getSelectedRow();
+            this.edit();
+        }
+    }//GEN-LAST:event_tblQuanLyPhongMouseClicked
 
-    
+
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-//        if(txtMaNV.getText().equals("")){
-//            MsgBox.alert(this, "Vui Lòng Nhập Mã Nhân Viên");
-//            txtMaNV.requestFocus();
-//        }else if(txtMatKhau.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Mật Khẩu");
-//             txtMatKhau.requestFocus();
-//        }else if(txtXacNhanMK.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Xác Nhận Mật Khẩu");
-//             txtXacNhanMK.requestFocus();
-//        }else if(txtHoTen.getText().equals("")){
-//             MsgBox.alert(this, "Vui Lòng Nhập Họ Và Tên");
-//             txtHoTen.requestFocus();
-//        }else if(rdoTruongPhong.isSelected()==false && rdoNhanVien.isSelected()==false){
-//             MsgBox.alert(this, "Vui Lòng Chọn Vai Trò");
-//        }else{
-//            this.insert();
-//        }
+        if (Check.checkNullTextField(txtTenPhong) && Check.checkNullTextField(txtGiaPhong)) {
+            this.insert();
+        }
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//        this.update();
+         if (Check.checkNullTextField(txtTenPhong) && Check.checkNullTextField(txtGiaPhong)) {
+            this.update();
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    
+
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        this.delete();
-      
+        this.delete();
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-//           this.clearForm();
+        this.clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtGiaPhongKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaPhongKeyPressed
+         char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            MsgBox.alert(this, "SDT phải là số");
+            txtGiaPhong.setText("");
+        } else {
+
+        }
+    }//GEN-LAST:event_txtGiaPhongKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -459,23 +456,25 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pnlEdit;
     private javax.swing.JPanel pnlList;
-    private javax.swing.JRadioButton rdoNhanVien;
-    private javax.swing.JRadioButton rdoTruongPhong;
+    private javax.swing.JRadioButton rdoPhong;
+    private javax.swing.JRadioButton rdoSudung;
+    private javax.swing.JRadioButton rdoTrong;
+    private javax.swing.JRadioButton rdoVip;
     private javax.swing.JTabbedPane tabs;
-    private javax.swing.JTable tblNhanVien;
-    private javax.swing.JPasswordField txtGiaPhong;
+    private javax.swing.JTable tblQuanLyPhong;
+    private javax.swing.JTextField txtGiaPhong;
+    private javax.swing.JTextField txtIDPhong;
     private javax.swing.JTextField txtTenPhong;
     // End of variables declaration//GEN-END:variables
 
-    
-
-    
 }
