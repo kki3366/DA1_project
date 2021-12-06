@@ -38,7 +38,7 @@ public class PhongDAO extends DAO<Phong, String> {
 
     @Override
     public void update(Phong enity) {
-        JDBCHelper.update(UPDATE_SQL, enity.getTenPhong(),enity.getGiaPhong(),enity.isLoaiPhong(),enity.getIDPhong());
+        JDBCHelper.update(UPDATE_SQL, enity.getTenPhong(),enity.getGiaPhong(),enity.isTrangThaiPhong(),enity.isLoaiPhong(),enity.getIDPhong());
     }
 
     @Override
