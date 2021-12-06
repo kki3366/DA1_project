@@ -467,7 +467,7 @@ public class SanPhamJInternalFrame extends javax.swing.JInternalFrame {
 //    }
 
     public void setModelTable() {
-        model = new DefaultTableModel(new Object[][]{}, new Object[]{"Mã NH", "Họ và tên", "Giới tính", "Ngày sinh", "Điện thoại", "Email", "Ghi chú"});
+        model = new DefaultTableModel(new Object[][]{}, new Object[]{"Ma Sản Phẩm", "Tên SP", "Giá SP", "Số Lượng", "Đơn Vị", "Người tạo", "Ghi chú"});
         tblNguoiHoc.setModel(model);
         JTableHeader header = tblNguoiHoc.getTableHeader();
         header.setFont(new Font("SansSerif", 1, 18));
@@ -672,7 +672,9 @@ public class SanPhamJInternalFrame extends javax.swing.JInternalFrame {
         row = -1;
         updateStatus();
     }
+public void test(){
 
+}
 //    public boolean checkForm() {
 //
 //        if (txtMaSP.getText().equals("") || txtTenSP.getText().equals("") || txtGiaSP.getText().equals("")
