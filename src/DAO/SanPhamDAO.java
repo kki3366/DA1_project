@@ -45,6 +45,8 @@ public class SanPhamDAO {
         }
         return list.get(0);
     }
+    
+    // kiểm tra lại đoạn này
     public List<SanPham> selectBySql(String sql, Object... args) {
         List<SanPham> list = new ArrayList<>();
         try {
@@ -75,10 +77,7 @@ public class SanPhamDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
-    public void test(){
-        
-    }
+   
     
     
 }
