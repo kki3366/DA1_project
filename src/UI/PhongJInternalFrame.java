@@ -295,7 +295,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
         try {
             List<Phong> list = pdao.selectAll();//đọc cơ sở dữ liệu từ CSDL
             for (Phong p : list) {
-                Object[] row = {p.getIDPhong(), p.getTenPhong(), p.getGiaPhong(), p.isTrangThaiPhong() ? "Đang sử dụng" : "Trống", p.isLoaiPhong() ? "VIP" : "Thường"};
+                Object[] row = {p.getIdPhong(), p.getTenPhong(), p.getGiaPhong(), p.isTrangThaiPhong() ? "Đang sử dụng" : "Trống", p.isLoaiPhong() ? "VIP" : "Thường"};
                 model.addRow(row); //thêm 1 hàng vào bảng nhân viên
             }
         } catch (Exception e) {
@@ -306,7 +306,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 
     //Tạo hàm setForm
     public void setForm(Phong p) {
-        txtIDPhong.setText(p.getIDPhong());
+        txtIDPhong.setText(p.getIdPhong());
         txtTenPhong.setText(p.getTenPhong());
         txtGiaPhong.setText(String.valueOf(p.getGiaPhong()));
         rdoSudung.setSelected(p.isTrangThaiPhong());
@@ -317,7 +317,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 
     public Phong getForm() {
         Phong p = new Phong();
-        p.setIDPhong(txtIDPhong.getText());
+        p.setIdPhong(txtIDPhong.getText());
         p.setTenPhong(txtTenPhong.getText());
         p.setGiaPhong(Integer.parseInt(txtGiaPhong.getText()));
         p.setTrangThaiPhong(rdoTrong.isSelected());
