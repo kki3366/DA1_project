@@ -10,6 +10,7 @@ import helper.JDBCHelper;
 import java.util.ArrayList;
 
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,14 +18,16 @@ import java.util.List;
  * @author pc
  */
 public class HoaDonDAO extends DAO<HoaDon, Integer> {
-    
+
     final String INSERT = "INSERT INTO HoaDon ( IDPhong, IDKhachHang, ThoiGianBatDau, ThoiGianKetThuc,IDNhanVien,DonGiaHoaDon,HoaDonHoanTat,NgayTao ) VALUES (?, ?, ?,?,?,?,?,?)";
     final String SELECT_IDBILLBYIDROOM = "select * from HoaDon where IDPhong = ? and HoaDonHoanTat = 0";
-    final String UPDATE_STATUS_BILL = "update HoaDon set HoaDonHoanTat = 1 where IDHoaDon = ?";
+    final String UPDATE_STATUS_BILL = "update HoaDon set DonGiaHoaDon =?,HoaDonHoanTat = 1 where IDHoaDon = ?";
+    final String UPDATE_BACK_ROOM = "update HoaDon set ThoiGianKetThuc = ? where IDHoaDon = ?";
+    final String SELECT_PRICE = "select DonGiaHoaDon from HoaDon where IDHoaDon = ?";
 
     @Override
     public void insert(HoaDon enity) {
-        JDBCHelper.update(INSERT,enity.getIDPhong(), enity.getIDKhachHang(), enity.getThoiGianBatDau(),enity.getThoiGianKetThuc(),enity.getIDNhanVien(), enity.getDonGiaHoaDon(),enity.isHoaDonHoanTat(), enity.getNgayTao());
+        JDBCHelper.update(INSERT, enity.getIDPhong(), enity.getIDKhachHang(), enity.getThoiGianBatDau(), enity.getThoiGianKetThuc(), enity.getIDNhanVien(), enity.getDonGiaHoaDon(), enity.isHoaDonHoanTat(), enity.getNgayTao());
     }
 
     @Override
@@ -80,13 +83,16 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
 //       return list.get(0);
 //        
 //    }
-    
     public List<HoaDon> CheckBillByIDPhong(String IdPhong) {
-        return this.selectBySql(SELECT_IDBILLBYIDROOM, IdPhong);  
+        return this.selectBySql(SELECT_IDBILLBYIDROOM, IdPhong);
+    }
+
+    public void ThanhToan(int id, int DonGiaHoaDon) {
+        JDBCHelper.update(UPDATE_STATUS_BILL, DonGiaHoaDon,id);
     }
     
-    public void ThanhToan(int id){
-        JDBCHelper.update(UPDATE_STATUS_BILL, id);
+    public void TraPhong(Date checkOut, int idRoom){
+        JDBCHelper.update(UPDATE_BACK_ROOM, checkOut,idRoom);
     }
 
 }
