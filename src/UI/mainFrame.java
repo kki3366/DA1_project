@@ -145,6 +145,15 @@ public class mainFrame extends javax.swing.JFrame {
             MsgBox.alert(this, "Vui Lòng Đăng Nhập");
         }
     }
+    
+    void OpenTraPhong(){
+         if (Auth.isLogin()) {
+             TraPhongJInternalFrame traphong = new TraPhongJInternalFrame();
+            OpenFrameAnother(traphong);
+        } else {
+            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -197,6 +206,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham = new javax.swing.JMenu();
         mniPhong = new javax.swing.JMenuItem();
         mniDatPhong = new javax.swing.JMenuItem();
+        mniTraPhong = new javax.swing.JMenuItem();
         mniSanPham = new javax.swing.JMenuItem();
         mniQuanLyNhanVien = new javax.swing.JMenuItem();
         mniQuanLyKhachHang = new javax.swing.JMenuItem();
@@ -204,10 +214,6 @@ public class mainFrame extends javax.swing.JFrame {
         mniLuongNguoiHoc = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        menuUserName = new javax.swing.JMenu();
-        menuThongKe1 = new javax.swing.JMenu();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jSeparator8 = new javax.swing.JPopupMenu.Separator();
 
         jMenuItem15.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
         jMenuItem15.setText("CHÚC BẠN HỌC TẬP TỐT");
@@ -425,7 +431,17 @@ public class mainFrame extends javax.swing.JFrame {
         });
         menuSanPham.add(mniDatPhong);
 
-        mniSanPham.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniTraPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniTraPhong.setText("Trả Phòng");
+        mniTraPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniTraPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniTraPhongActionPerformed(evt);
+            }
+        });
+        menuSanPham.add(mniTraPhong);
+
+        mniSanPham.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniSanPham.setText("Sản Phẩm");
         mniSanPham.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniSanPham.addActionListener(new java.awt.event.ActionListener() {
@@ -435,7 +451,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
         menuSanPham.add(mniSanPham);
 
-        mniQuanLyNhanVien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniQuanLyNhanVien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniQuanLyNhanVien.setText("Quản lý nhân viên");
         mniQuanLyNhanVien.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniQuanLyNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -445,7 +461,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
         menuSanPham.add(mniQuanLyNhanVien);
 
-        mniQuanLyKhachHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniQuanLyKhachHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniQuanLyKhachHang.setText("Quản lý khách hàng");
         mniQuanLyKhachHang.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniQuanLyKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -473,16 +489,6 @@ public class mainFrame extends javax.swing.JFrame {
         menuThongKe.add(jSeparator4);
 
         menuBar.add(menuThongKe);
-
-        menuUserName.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        menuBar.add(menuUserName);
-
-        menuThongKe1.setText("Thống kê");
-        menuThongKe1.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        menuThongKe1.add(jSeparator5);
-        menuThongKe1.add(jSeparator8);
-
-        menuBar.add(menuThongKe1);
 
         setJMenuBar(menuBar);
 
@@ -570,6 +576,10 @@ public class mainFrame extends javax.swing.JFrame {
         OpenKhachHang();
     }//GEN-LAST:event_mniQuanLyKhachHangActionPerformed
 
+    private void mniTraPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTraPhongActionPerformed
+        OpenTraPhong();
+    }//GEN-LAST:event_mniTraPhongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -623,18 +633,14 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
-    private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDongHo;
     private javax.swing.JDesktopPane mainFrame;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuSanPham;
     private javax.swing.JMenu menuThongKe;
-    private javax.swing.JMenu menuThongKe1;
-    private javax.swing.JMenu menuUserName;
     private javax.swing.JMenuItem mniDangNhap;
     private javax.swing.JMenuItem mniDangXuat;
     private javax.swing.JMenuItem mniDatPhong;
@@ -646,6 +652,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniQuanLyNhanVien;
     private javax.swing.JMenuItem mniQuenMatKhau;
     private javax.swing.JMenuItem mniSanPham;
+    private javax.swing.JMenuItem mniTraPhong;
     private javax.swing.JMenu mnuHeThong;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JLabel txtname;
