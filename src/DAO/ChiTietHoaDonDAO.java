@@ -18,12 +18,12 @@ import java.util.List;
 public class ChiTietHoaDonDAO extends DAO<ChiTietHoaDon, Integer> {
     
     
-    final String INSERT = "INSERT INTO ChiTietHoaDon(SoLuong,IDSanPham, IDHoaDon, DonGiaHoaDon) VALUES (?,?,?,?)";
+    final String INSERT = "INSERT INTO ChiTietHoaDon(SoLuong,IDSanPham, IDHoaDon, DonGiaChiTietHoaDon) VALUES (?,?,?,?)";
     final String SELECT_ALL_BILLINFO = "select * from ChiTietHoaDon where IDHoaDon = ?";
 
     @Override
     public void insert(ChiTietHoaDon enity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.update(INSERT, enity.getSoLuong(), enity.getIDSanPham(), enity.getIDHoaDon(), enity.getDonGiaChiTietHoaDon());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ChiTietHoaDonDAO extends DAO<ChiTietHoaDon, Integer> {
                 enity.setIDChiTietHoaDon(rs.getInt("IDChiTietHoaDon"));
                 enity.setSoLuong(rs.getInt("SoLuong"));
                 enity.setIDHoaDon(rs.getInt("IDHoaDon"));
-                enity.setIdSanPham(rs.getInt("IDSanPham"));
+                enity.setIDSanPham(rs.getInt("IDSanPham"));
                 enity.setDonGiaChiTietHoaDon(rs.getInt("DonGiaChiTietHoaDon"));
                 list.add(enity);
             }
