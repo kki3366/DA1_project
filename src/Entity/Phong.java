@@ -6,21 +6,24 @@
 package Entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Getter
+/**
+ *
+ * @author pc
+ */
 @Setter
-@Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Phong {
-    private String IDPhong;
-    private String TenPhong;
+    private String IdPhong;
+    private String tenPhong;
     private boolean TrangThaiPhong;
     private int GiaPhong;
     private boolean LoaiPhong;
+
+    
 }
