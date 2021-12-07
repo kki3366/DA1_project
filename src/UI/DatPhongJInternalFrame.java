@@ -301,7 +301,7 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
         } else {
             PhongDAO dao = new PhongDAO();
             Phong p = dao.selectBynameRoom(TenPhong.trim());
-            idPhong = p.getIDPhong();
+            idPhong = p.getIdPhong();
             System.out.println(idPhong);
         }
         System.out.println(TenPhong);
