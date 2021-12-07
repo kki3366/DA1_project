@@ -14,6 +14,7 @@ import lombok.Setter;
  *
  * @author pc
  */
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,9 +22,13 @@ import lombok.Setter;
 public class ChiTietHoaDon {
     private int IDChiTietHoaDon;
     private int SoLuong;
-    private int IdSanPham;
     private int IDHoaDon;
+    private int IDSanPham;
     private int DonGiaChiTietHoaDon;
+
+    
+
+   
     
     
     
