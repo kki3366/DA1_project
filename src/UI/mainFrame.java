@@ -326,7 +326,7 @@ public class mainFrame extends javax.swing.JFrame {
             .addGroup(mainFrameLayout.createSequentialGroup()
                 .addGap(163, 163, 163)
                 .addComponent(txtname)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
 
         getContentPane().add(mainFrame, java.awt.BorderLayout.CENTER);
@@ -352,6 +352,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
 
         mniDangNhap.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_login_32px.png"))); // NOI18N
         mniDangNhap.setText("Đăng nhập");
         mniDangNhap.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniDangNhap.addActionListener(new java.awt.event.ActionListener() {
@@ -362,6 +363,7 @@ public class mainFrame extends javax.swing.JFrame {
         mnuHeThong.add(mniDangNhap);
 
         mniDangXuat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_logout_rounded_left_32px.png"))); // NOI18N
         mniDangXuat.setText("Đăng xuất");
         mniDangXuat.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -372,6 +374,7 @@ public class mainFrame extends javax.swing.JFrame {
         mnuHeThong.add(mniDangXuat);
         mnuHeThong.add(jSeparator1);
 
+        mniDoiMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_password_reset_32px.png"))); // NOI18N
         mniDoiMatKhau.setText("Đổi mật khẩu");
         mniDoiMatKhau.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
@@ -381,6 +384,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
         mnuHeThong.add(mniDoiMatKhau);
 
+        mniQuenMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_forgot_password_32px.png"))); // NOI18N
         mniQuenMatKhau.setText("Quên mật khẩu");
         mniQuenMatKhau.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniQuenMatKhau.addActionListener(new java.awt.event.ActionListener() {
@@ -392,6 +396,7 @@ public class mainFrame extends javax.swing.JFrame {
         mnuHeThong.add(jSeparator2);
 
         mniKetThuc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniKetThuc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_enter_32px_1.png"))); // NOI18N
         mniKetThuc.setText("Kết thúc");
         mniKetThuc.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniKetThuc.addActionListener(new java.awt.event.ActionListener() {
@@ -412,6 +417,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
 
         mniPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_warehouse_32px_1.png"))); // NOI18N
         mniPhong.setText("Phòng ");
         mniPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniPhong.addActionListener(new java.awt.event.ActionListener() {
@@ -422,6 +428,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham.add(mniPhong);
 
         mniDatPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDatPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_furniture_32px.png"))); // NOI18N
         mniDatPhong.setText("Đặt Phòng");
         mniDatPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniDatPhong.addActionListener(new java.awt.event.ActionListener() {
@@ -432,6 +439,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham.add(mniDatPhong);
 
         mniTraPhong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniTraPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_room_32px.png"))); // NOI18N
         mniTraPhong.setText("Trả Phòng");
         mniTraPhong.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniTraPhong.addActionListener(new java.awt.event.ActionListener() {
@@ -442,6 +450,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham.add(mniTraPhong);
 
         mniSanPham.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_similar_items_32px.png"))); // NOI18N
         mniSanPham.setText("Sản Phẩm");
         mniSanPham.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniSanPham.addActionListener(new java.awt.event.ActionListener() {
@@ -452,6 +461,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham.add(mniSanPham);
 
         mniQuanLyNhanVien.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniQuanLyNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_employee_32px.png"))); // NOI18N
         mniQuanLyNhanVien.setText("Quản lý nhân viên");
         mniQuanLyNhanVien.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniQuanLyNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -462,6 +472,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuSanPham.add(mniQuanLyNhanVien);
 
         mniQuanLyKhachHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniQuanLyKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_customer_32px.png"))); // NOI18N
         mniQuanLyKhachHang.setText("Quản lý khách hàng");
         mniQuanLyKhachHang.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniQuanLyKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -477,6 +488,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuThongKe.setMargin(new java.awt.Insets(5, 5, 5, 5));
 
         mniLuongNguoiHoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mniLuongNguoiHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_graph_report_script_32px.png"))); // NOI18N
         mniLuongNguoiHoc.setText("Thống Kê");
         mniLuongNguoiHoc.setMargin(new java.awt.Insets(5, 5, 5, 5));
         mniLuongNguoiHoc.addActionListener(new java.awt.event.ActionListener() {
