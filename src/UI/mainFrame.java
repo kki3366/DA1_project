@@ -102,16 +102,16 @@ public class mainFrame extends javax.swing.JFrame {
     }
 //
 
-    void OpenSanPham() {
-
-        if (Auth.isLogin()) {
-            SanPhamJInternalFrame sp = new SanPhamJInternalFrame();
-            OpenFrameAnother(sp);
-        } else {
-            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
-        }
-
-    }
+//    void OpenSanPham() {
+//
+//        if (Auth.isLogin()) {
+//            SanPhamJInternalFrame sp = new SanPhamJInternalFrame();
+//            OpenFrameAnother(sp);
+//        } else {
+//            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
+//        }
+//
+//    }
 
     void OpenPhong() {
         if (Auth.isLogin()) {
@@ -525,7 +525,7 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
     private void mniSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSanPhamActionPerformed
-        OpenSanPham();
+//        OpenSanPham();
     }//GEN-LAST:event_mniSanPhamActionPerformed
 
     private void mniQuanLyNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhanVienActionPerformed
@@ -545,7 +545,7 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mainFrameMouseReleased
 
     private void menuSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSanPhamActionPerformed
-        OpenSanPham();
+//        OpenSanPham();
     }//GEN-LAST:event_menuSanPhamActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
