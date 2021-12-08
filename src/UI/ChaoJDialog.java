@@ -64,6 +64,8 @@ public class ChaoJDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo.jpg"))); // NOI18N
         jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setLayout(new java.awt.BorderLayout());

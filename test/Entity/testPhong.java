@@ -11,8 +11,8 @@ package Entity;
  */
 public class testPhong {
     public static void main(String[] args) {
-        Phong p = Phong.builder().IDPhong("PH003").TenPhong("Phòng 3").LoaiPhong(true).GiaPhong(50000).TrangThaiPhong(false).build();
-        System.out.println(p.getIDPhong());
+        Phong p = Phong.builder().IdPhong("PH003").tenPhong("Phòng 3").LoaiPhong(true).GiaPhong(50000).TrangThaiPhong(false).build();
+        System.out.println(p.getIdPhong());
         System.out.println(p.getTenPhong());
         System.out.println(p.isLoaiPhong());
         System.out.println(p.getGiaPhong());
