@@ -15,6 +15,7 @@ import Entity.SanPham;
 import Ultils.Auth;
 import Ultils.MsgBox;
 import Ultils.XDate;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
@@ -46,10 +47,12 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     int idHoaDon = 0;
     String idPhong = null;
     int idSP = 0;
+    int slSP = 0;
+    int IdCTHD = 0;
     int GiaSanPham = 0;
     boolean status = false;
     int GiaPhong = 0;
- int flag = 0;
+
     void OpenRoom() {
 
         PhongDAO dao = new PhongDAO();
@@ -66,8 +69,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 btn.setBackground(Color.green);
 
             }
-            
-            
+
             btn.addActionListener((e) -> {
 //                JOptionPane.showMessageDialog(this, p.getIdPhong());
                 String Idroom = p.getIdPhong();
@@ -78,7 +80,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 System.out.println(Idroom);
                 ShowBill(Idroom);
             });
-          
+
         }
     }
 
@@ -95,9 +97,17 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             System.out.println("ID hóa đơn theo phòng là: " + idHoaDon);
         }
 
+        ChiTietHoaDonDAO cthddao = new ChiTietHoaDonDAO();
+
+        List<ChiTietHoaDon> listCTHD = cthddao.selectAllByIDHoaDon(idHoaDon);
+        for (ChiTietHoaDon chiTietHoaDon : listCTHD) {
+            IdCTHD = chiTietHoaDon.getIDChiTietHoaDon();
+            System.out.println("Id Chi tết hóa đơn là:" + IdCTHD);
+        }
+
         MenuTrungGianDAO menudao = new MenuTrungGianDAO();
         int ThoiGian = 0;
-        
+
         try {
             DefaultTableModel model = (DefaultTableModel) tblChitiethoadon.getModel();
             model.setRowCount(0);
@@ -107,14 +117,16 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 Object[] rowTable = {menuTG.getTenSanPham(), menuTG.getSoLuongSanPham(), menuTG.getGiaSanPham(), menuTG.getTongtien()};
                 model.addRow(rowTable);
                 ThoiGian = menuTG.getThoiGianSuDung();
+                slSP = menuTG.getSoLuongSanPham();
+                System.out.println("số lượng sp: " + slSP);
 
             }
-             int Tongtien = 0;
+            int Tongtien = 0;
             DecimalFormat formatter = new DecimalFormat("###,###,###");
             for (int i = 0; i < tblChitiethoadon.getRowCount(); i++) {
                 Tongtien += Integer.parseInt(tblChitiethoadon.getValueAt(i, 3).toString());
             }
-            
+
             txtTien.setText(String.valueOf(Tongtien));
 //            txtThoiGianSuDung.setText(String.valueOf(ThoiGian) + " Phút");
         } catch (Exception e) {
@@ -135,11 +147,13 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
         tblChitiethoadon = new javax.swing.JTable();
         cboSanPham = new javax.swing.JComboBox<>();
         btnThemSanPham = new javax.swing.JButton();
+        btnChinhSoLuong = new javax.swing.JButton();
         SpinnerSL = new javax.swing.JSpinner();
         txtThoiGianKetThuc = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTien = new javax.swing.JTextField();
+        btnXoa = new javax.swing.JButton();
         btnTraPhong = new javax.swing.JButton();
         scrool = new javax.swing.JScrollPane();
         pnlDatPhong = new javax.swing.JPanel();
@@ -188,6 +202,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 "Tên Sản Phẩm", "Số lượng", "Giá Sản Phẩm", "Tổng tiền"
             }
         ));
+        tblChitiethoadon.setCellSelectionEnabled(true);
         jScrollPane1.setViewportView(tblChitiethoadon);
 
         cboSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -204,11 +219,25 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        SpinnerSL.setModel(new javax.swing.SpinnerNumberModel(0, 0, 1000, 1));
+        btnChinhSoLuong.setText("Chỉnh số lượng");
+        btnChinhSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChinhSoLuongActionPerformed(evt);
+            }
+        });
+
+        SpinnerSL.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
 
         jLabel2.setText("Thời Gian Rời");
 
         jLabel3.setText("Tiền");
+
+        btnXoa.setText("Xóa ");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -217,14 +246,6 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(cboSanPham, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SpinnerSL, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnThemSanPham)
-                        .addGap(46, 46, 46))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -237,21 +258,35 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtThoiGianKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(cboSanPham, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SpinnerSL, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnThemSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChinhSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addGap(15, 15, 15)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(btnThemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cboSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SpinnerSL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                    .addComponent(cboSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChinhSoLuong))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpinnerSL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -329,7 +364,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
         if (idHoaDon != -1) {
             JOptionPane.showMessageDialog(this, "Bạn đã thanh toán");
             Date now = new Date();
-            hddao.ThanhToan(idHoaDon,Integer.parseInt(txtTien.getText()) + (GiaPhong/60));
+            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (GiaPhong / 60));
             ShowBill(idPhong);
             PhongDAO phong = new PhongDAO();
             phong.PhongStatus(idPhong);
@@ -338,17 +373,17 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             OpenRoom();
         }
     }
-   
-    void TraPhong(){
-         HoaDonDAO hddao = new HoaDonDAO();
+
+    void TraPhong() {
+        HoaDonDAO hddao = new HoaDonDAO();
         if (idHoaDon != -1) {
             JOptionPane.showMessageDialog(this, "Bạn đã thanh toán");
-           Date now = new Date();
-            hddao.TraPhong(XDate.toDate(txtThoiGianKetThuc.getText(), "dd-MM-yyyy hh:mm:ss"),idHoaDon);
+            Date now = new Date();
+            hddao.TraPhong(XDate.toDate(txtThoiGianKetThuc.getText(), "dd-MM-yyyy hh:mm:ss"), idHoaDon);
             ShowBill(idPhong);
             PhongDAO phong = new PhongDAO();
 //            phong.PhongStatus(idPhong);
-            flag = 1;
+
             pnlDatPhong.removeAll();
             OpenRoom();
         }
@@ -377,13 +412,47 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
 
     void insertSP() {
         ChiTietHoaDon cthd = getForm();
-        try {
-            cthddao.insert(cthd);
+        try {     
+            cthddao.insert(cthd);       
+            System.out.println(cthd.getIDChiTietHoaDon());
             ShowBill(idPhong);
+            System.out.println();
             System.out.println("Thêm thành công");
+        } catch(Exception ex) {
+            if(ex.getMessage().contains("UNIQUE KEY")){
+                MsgBox.alert(this, "Sản phẩm đã được thêm");
+            }else{
+                MsgBox.alert(this, "Lỗi");
+            }
+            
+        }
+    }
+    
+    void updateSP(){
+         ChiTietHoaDon cthd = getForm();
+        try {     
+            cthddao.Update_item_after_insert((int) SpinnerSL.getValue(),idSP);       
+            System.out.println(cthd.getIDChiTietHoaDon());
+            ShowBill(idPhong);
+            System.out.println();
+            System.out.println("Sửa thành công");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Thêm thất bại");
+            System.out.println("Sửa thất bại");
+        }
+    }
+    
+    void deleteSP(){
+         ChiTietHoaDon cthd = getForm();
+          try {     
+            cthddao.delete(idSP);       
+            System.out.println(cthd.getIDChiTietHoaDon());
+            ShowBill(idPhong);
+            
+            System.out.println("Xóa thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Xóa thất bại");
         }
     }
 
@@ -396,7 +465,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             SanPham sp = spdao.selectByNameSP(value);
             idSP = sp.getIdSanPham();
             GiaSanPham = sp.getGiaSanPham();
-            System.out.println(idSP);
+            System.out.println("ID sản phẩm là: " +idSP);
         }
     }
 
@@ -406,12 +475,16 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnTraPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraPhongActionPerformed
-       TraPhong();
+        if (status == false) {
+            MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
+        } else {
+            TraPhong();
+        }
     }//GEN-LAST:event_btnTraPhongActionPerformed
 
     private void btnThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSanPhamActionPerformed
         if (status == false) {
-            System.out.println("Phòng đang trống, vui lòng kiểm tra lại ");
+            MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
         } else {
             insertSP();
         }
@@ -422,15 +495,37 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboSanPhamActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-      ThanhToan();
+        if (status == false) {
+            MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
+        } else {
+            ThanhToan();
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void btnChinhSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChinhSoLuongActionPerformed
+         if (status == false) {
+            MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
+        } else {
+            updateSP();
+        }
+    }//GEN-LAST:event_btnChinhSoLuongActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+      if (status == false) {
+            MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
+        } else {
+            deleteSP();
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner SpinnerSL;
+    private javax.swing.JButton btnChinhSoLuong;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnTraPhong;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboSanPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
