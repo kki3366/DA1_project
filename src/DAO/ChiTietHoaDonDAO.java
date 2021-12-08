@@ -20,6 +20,7 @@ public class ChiTietHoaDonDAO extends DAO<ChiTietHoaDon, Integer> {
     
     final String INSERT = "INSERT INTO ChiTietHoaDon(SoLuong,IDSanPham, IDHoaDon, DonGiaChiTietHoaDon) VALUES (?,?,?,?)";
     final String SELECT_ALL_BILLINFO = "select * from ChiTietHoaDon where IDHoaDon = ?";
+    final String UPDATE_ITEM_AFTER_INSER = "update ChiTietHoaDon set SoLuong = ? where IDChiTietHoaDon = ? and IDSanPham = ?";
 
     @Override
     public void insert(ChiTietHoaDon enity) {
@@ -69,6 +70,10 @@ public class ChiTietHoaDonDAO extends DAO<ChiTietHoaDon, Integer> {
 
     public List<ChiTietHoaDon> selectAllByIDHoaDon(int IdHoaDon) {
        return this.selectBySql(SELECT_ALL_BILLINFO, IdHoaDon);
+    }
+    
+    public void Update_item_after_insert(int sl,int id, int idSp){
+        JDBCHelper.update(UPDATE_ITEM_AFTER_INSER, sl, id, idSp);
     }
 
 }
