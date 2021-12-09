@@ -7,12 +7,17 @@ import DAO.PhongDAO;
 import Entity.KhachHang;
 import Entity.Phong;
 import Ultils.Auth;
+import Ultils.Check;
 import Ultils.MsgBox;
 import Ultils.XDate;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,9 +34,17 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
         fillTable();
         fillComboBoxPhong();
         Date now = new Date();
-        txtThoiGianBatDau.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
+//        txtThoiGianBatDau.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
+         new Timer(1000, new ActionListener() {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtThoiGianBatDau.setText(sdf.format(new Date()));
+            }
+        }).start();
         txtNhanVien.setText(Auth.user.getIdNhanVien());
-        txtNgaytao.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
+        txtNgaytao.setText(XDate.toString(now, "dd-MM-yyyy"));
     }
 
     @SuppressWarnings("unchecked")
@@ -153,10 +166,12 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
         });
 
         txtMaKhachHang.setEditable(false);
+        txtMaKhachHang.setName("Mã Khách Hàng"); // NOI18N
 
         jLabel2.setText("Tên Khách Hàng");
 
         txtTenKhachHang.setEditable(false);
+        txtTenKhachHang.setName("Tên Khách Hàng"); // NOI18N
 
         jLabel3.setText("Thời Gian Bắt Đầu");
 
@@ -377,7 +392,9 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboPhongTrongActionPerformed
 
     private void btnDatPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatPhongActionPerformed
-       insert();
+      if(Check.checkNullTextField(txtMaKhachHang) && Check.checkNullTextField(txtTenKhachHang)){
+          insert();
+      }
     }//GEN-LAST:event_btnDatPhongActionPerformed
 
 

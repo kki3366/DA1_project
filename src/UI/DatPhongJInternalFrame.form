@@ -258,6 +258,7 @@
         <Component class="javax.swing.JTextField" name="txtMaKhachHang">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="M&#xe3; Kh&#xe1;ch H&#xe0;ng" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -268,6 +269,7 @@
         <Component class="javax.swing.JTextField" name="txtTenKhachHang">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="T&#xea;n Kh&#xe1;ch H&#xe0;ng" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
