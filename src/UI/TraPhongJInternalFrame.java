@@ -18,13 +18,18 @@ import Ultils.XDate;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,14 +38,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
 
-    int row = 0;
     String idRoom = null;
 
     public TraPhongJInternalFrame() {
         initComponents();
         fillComboBoxSanPham();
         Date now = new Date();
-        txtThoiGianKetThuc.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
+//        txtThoiGianKetThuc.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
+        new Timer(1000, new ActionListener() {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtThoiGianKetThuc.setText(sdf.format(new Date()));
+            }
+        }).start();
 
     }
     ChiTietHoaDonDAO cthddao = new ChiTietHoaDonDAO();
@@ -52,7 +64,9 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     int GiaSanPham = 0;
     boolean status = false;
     int GiaPhong = 0;
-
+int ThoiGian = 0;
+    
+    
     void OpenRoom() {
 
         PhongDAO dao = new PhongDAO();
@@ -64,24 +78,27 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             btn.setSize(60, 60);
             btn.setText("<html><p>" + p.getTenPhong() + "</p><p>" + String.valueOf(p.isTrangThaiPhong() ? "Đã đặt" : "Trống") + "</p></html>");
             pnlDatPhong.add(btn);
-            pnlDatPhong.repaint();
             if (p.isTrangThaiPhong() == true) {
                 btn.setBackground(Color.green);
 
             }
+            
 
-            btn.addActionListener((e) -> {
-//                JOptionPane.showMessageDialog(this, p.getIdPhong());
-                String Idroom = p.getIdPhong();
-                status = p.isTrangThaiPhong();
-                GiaPhong = p.getGiaPhong();
-                System.out.println(GiaPhong);
-                System.out.println(status);
-                System.out.println(Idroom);
-                ShowBill(Idroom);
-            });
-
-        }
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //                JOptionPane.showMessageDialog(this, p.getIdPhong());
+                    String Idroom = p.getIdPhong();
+                    status = p.isTrangThaiPhong();
+                    GiaPhong = p.getGiaPhong();
+                    System.out.println(GiaPhong);
+                    System.out.println(status);
+                    System.out.println(Idroom);
+                    ShowBill(Idroom);
+                    
+                }
+            }); 
+        }    
     }
 
     void ShowBill(String IdPhong) {
@@ -95,6 +112,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             idHoaDon = hd.getIDHoaDon();
             idPhong = hd.getIDPhong();
             System.out.println("ID hóa đơn theo phòng là: " + idHoaDon);
+            
         }
 
         ChiTietHoaDonDAO cthddao = new ChiTietHoaDonDAO();
@@ -106,7 +124,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
         }
 
         MenuTrungGianDAO menudao = new MenuTrungGianDAO();
-        int ThoiGian = 0;
+        
 
         try {
             DefaultTableModel model = (DefaultTableModel) tblChitiethoadon.getModel();
@@ -364,13 +382,17 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
         if (idHoaDon != -1) {
             JOptionPane.showMessageDialog(this, "Bạn đã thanh toán");
             Date now = new Date();
-            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (GiaPhong / 60));
+            HoaDon hd = hddao.selectById(idHoaDon);
+            Long ThoiGianSuDung =(hd.getThoiGianKetThuc().getTime() - hd.getThoiGianBatDau().getTime());
+            int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(ThoiGianSuDung);
+            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian + (GiaPhong/60)));
             ShowBill(idPhong);
             PhongDAO phong = new PhongDAO();
             phong.PhongStatus(idPhong);
             txtTien.setText("");
             pnlDatPhong.removeAll();
             OpenRoom();
+         
         }
     }
 
@@ -383,9 +405,9 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             ShowBill(idPhong);
             PhongDAO phong = new PhongDAO();
 //            phong.PhongStatus(idPhong);
-
             pnlDatPhong.removeAll();
             OpenRoom();
+           
         }
     }
 
@@ -412,26 +434,27 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
 
     void insertSP() {
         ChiTietHoaDon cthd = getForm();
-        try {     
-            cthddao.insert(cthd);       
+        try {
+            cthddao.insert(cthd);
             System.out.println(cthd.getIDChiTietHoaDon());
             ShowBill(idPhong);
             System.out.println();
             System.out.println("Thêm thành công");
-        } catch(Exception ex) {
-            if(ex.getMessage().contains("UNIQUE KEY")){
+        } catch (Exception ex) {
+            if (ex.getMessage().contains("UNIQUE KEY")) {
                 MsgBox.alert(this, "Sản phẩm đã được thêm");
-            }else{
-                MsgBox.alert(this, "Lỗi");
+            } else {
+                MsgBox.alert(this, "Thêm sản phẩm thất bại");
+                ex.printStackTrace();
             }
-            
+
         }
     }
-    
-    void updateSP(){
-         ChiTietHoaDon cthd = getForm();
-        try {     
-            cthddao.Update_item_after_insert((int) SpinnerSL.getValue(),idSP);       
+
+    void updateSP() {
+        ChiTietHoaDon cthd = getForm();
+        try {
+            cthddao.Update_item_after_insert((int) SpinnerSL.getValue(), idSP);
             System.out.println(cthd.getIDChiTietHoaDon());
             ShowBill(idPhong);
             System.out.println();
@@ -441,14 +464,14 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             System.out.println("Sửa thất bại");
         }
     }
-    
-    void deleteSP(){
-         ChiTietHoaDon cthd = getForm();
-          try {     
-            cthddao.delete(idSP);       
+
+    void deleteSP() {
+        ChiTietHoaDon cthd = getForm();
+        try {
+            cthddao.delete(idSP);
             System.out.println(cthd.getIDChiTietHoaDon());
             ShowBill(idPhong);
-            
+
             System.out.println("Xóa thành công");
         } catch (Exception e) {
             e.printStackTrace();
@@ -465,9 +488,11 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             SanPham sp = spdao.selectByNameSP(value);
             idSP = sp.getIdSanPham();
             GiaSanPham = sp.getGiaSanPham();
-            System.out.println("ID sản phẩm là: " +idSP);
+            System.out.println("ID sản phẩm là: " + idSP);
         }
     }
+
+   
 
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -503,7 +528,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnChinhSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChinhSoLuongActionPerformed
-         if (status == false) {
+        if (status == false) {
             MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
         } else {
             updateSP();
@@ -511,7 +536,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnChinhSoLuongActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-      if (status == false) {
+        if (status == false) {
             MsgBox.alert(this, "Phòng đang trống. Vui lòng kiểm tra lại");
         } else {
             deleteSP();
