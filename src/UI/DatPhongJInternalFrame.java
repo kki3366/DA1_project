@@ -36,7 +36,7 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
         Date now = new Date();
 //        txtThoiGianBatDau.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
          new Timer(1000, new ActionListener() {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +44,7 @@ public class DatPhongJInternalFrame extends javax.swing.JInternalFrame {
             }
         }).start();
         txtNhanVien.setText(Auth.user.getIdNhanVien());
-        txtNgaytao.setText(XDate.toString(now, "dd-MM-yyyy"));
+        txtNgaytao.setText(XDate.toString(now, "dd-MM-yyyy hh:mm:ss"));
     }
 
     @SuppressWarnings("unchecked")
