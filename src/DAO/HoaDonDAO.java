@@ -6,6 +6,7 @@
 package DAO;
 
 import Entity.HoaDon;
+import Entity.NhanVien;
 import helper.JDBCHelper;
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
     final String UPDATE_STATUS_BILL = "update HoaDon set DonGiaHoaDon =?,HoaDonHoanTat = 1 where IDHoaDon = ?";
     final String UPDATE_BACK_ROOM = "update HoaDon set ThoiGianKetThuc = ? where IDHoaDon = ?";
     final String SELECT_PRICE = "select DonGiaHoaDon from HoaDon where IDHoaDon = ?";
+    final String SELECT_ALL_BYID = "select * from HoaDon where IDHoaDon = ?";
 
     @Override
     public void insert(HoaDon enity) {
@@ -42,12 +44,16 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
 
     @Override
     public HoaDon selectById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          List<HoaDon> list = this.selectBySql(SELECT_ALL_BYID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override
     public List<HoaDon> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
