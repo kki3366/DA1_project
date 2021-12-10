@@ -20,16 +20,17 @@ import java.util.List;
  */
 public class HoaDonDAO extends DAO<HoaDon, Integer> {
 
-    final String INSERT = "INSERT INTO HoaDon ( IDPhong, IDKhachHang, ThoiGianBatDau, ThoiGianKetThuc,IDNhanVien,DonGiaHoaDon,HoaDonHoanTat,NgayTao ) VALUES (?, ?, ?,?,?,?,?,?)";
+    final String INSERT = "INSERT INTO HoaDon ( IDPhong, IDKhachHang, ThoiGianBatDau, ThoiGianKetThuc,IDNhanVien,DonGiaHoaDon,HoaDonHoanTat,NgayTao, ChoThanhToan) VALUES (?, ?, ?,?,?,?,?,?,?)";
     final String SELECT_IDBILLBYIDROOM = "select * from HoaDon where IDPhong = ? and HoaDonHoanTat = 0";
     final String UPDATE_STATUS_BILL = "update HoaDon set DonGiaHoaDon =?,HoaDonHoanTat = 1 where IDHoaDon = ?";
-    final String UPDATE_BACK_ROOM = "update HoaDon set ThoiGianKetThuc = ? where IDHoaDon = ?";
+    final String UPDATE_BACK_ROOM = "update HoaDon set ThoiGianKetThuc = ?, ChoThanhToan = 1 where IDHoaDon = ?"; // sửa
     final String SELECT_PRICE = "select DonGiaHoaDon from HoaDon where IDHoaDon = ?";
     final String SELECT_ALL_BYID = "select * from HoaDon where IDHoaDon = ?";
-
+    final String SELECT_ALL = "select * from HoaDon";
+    final String Check_ThanhToanByIDPhong = "select * from HoaDon where IDPhong = ?";
     @Override
     public void insert(HoaDon enity) {
-        JDBCHelper.update(INSERT, enity.getIDPhong(), enity.getIDKhachHang(), enity.getThoiGianBatDau(), enity.getThoiGianKetThuc(), enity.getIDNhanVien(), enity.getDonGiaHoaDon(), enity.isHoaDonHoanTat(), enity.getNgayTao());
+        JDBCHelper.update(INSERT, enity.getIDPhong(), enity.getIDKhachHang(), enity.getThoiGianBatDau(), enity.getThoiGianKetThuc(), enity.getIDNhanVien(), enity.getDonGiaHoaDon(), enity.isHoaDonHoanTat(), enity.getNgayTao(), enity.isChoThanhToan()); // sửa
     }
 
     @Override
@@ -53,7 +54,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
 
     @Override
     public List<HoaDon> selectAll() {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return this.selectBySql(SELECT_ALL);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
                 enity.setDonGiaHoaDon(rs.getInt("DonGiaHoaDon"));
                 enity.setHoaDonHoanTat(rs.getBoolean("HoaDonHoanTat"));
                 enity.setNgayTao(rs.getDate("NgayTao"));
+                enity.setChoThanhToan(rs.getBoolean("ChoThanhToan")); // sửa
                 list.add(enity);
             }
             rs.getStatement().getConnection().close();
@@ -81,14 +83,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
         }
     }
 
-//    public HoaDon CheckBillByIDPhong(String IdPhong) {
-//        List<HoaDon> list = this.selectBySql(SELECT_IDBILLBYIDROOM, IdPhong);
-//        if (list.isEmpty()) {
-//            return null;
-//        }
-//       return list.get(0);
-//        
-//    }
+
     public List<HoaDon> CheckBillByIDPhong(String IdPhong) {
         return this.selectBySql(SELECT_IDBILLBYIDROOM, IdPhong);
     }
@@ -100,5 +95,12 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
     public void TraPhong(Date checkOut, int idRoom){
         JDBCHelper.update(UPDATE_BACK_ROOM, checkOut,idRoom);
     }
-
+    
+     public HoaDon selectByIdPhong(String id) {
+          List<HoaDon> list = this.selectBySql(Check_ThanhToanByIDPhong, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
 }
