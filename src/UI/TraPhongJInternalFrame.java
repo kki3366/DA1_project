@@ -64,9 +64,9 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     int GiaSanPham = 0;
     boolean status = false;
     int GiaPhong = 0;
-int ThoiGian = 0;
-    
-    
+    int ThoiGian = 0;
+    boolean ChoThanhToan;
+    boolean hoantat;
     void OpenRoom() {
 
         PhongDAO dao = new PhongDAO();
@@ -76,13 +76,11 @@ int ThoiGian = 0;
             btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
             btn.setFont(btn.getFont().deriveFont(14f).deriveFont(Font.BOLD));
             btn.setSize(60, 60);
-            btn.setText("<html><p>" + p.getTenPhong() + "</p><p>" + String.valueOf(p.isTrangThaiPhong() ? "Đã đặt" : "Trống") + "</p></html>");
+            btn.setText("<html><p>" + p.getTenPhong() + "</p><p>" + String.valueOf(p.isTrangThaiPhong() ? "Sử dụng" : "Trống") + "</p></html>");
             pnlDatPhong.add(btn);
             if (p.isTrangThaiPhong() == true) {
                 btn.setBackground(Color.green);
-
             }
-            
 
             btn.addActionListener(new ActionListener() {
                 @Override
@@ -95,10 +93,19 @@ int ThoiGian = 0;
                     System.out.println(status);
                     System.out.println(Idroom);
                     ShowBill(Idroom);
-                    
+                    HoaDonDAO hddao = new HoaDonDAO();
+                    HoaDon hd = hddao.selectByIdPhong(Idroom);
+                    if (hd != null) {
+                        ChoThanhToan = hd.isChoThanhToan();
+                        System.out.println("Chờ thanh toán là: " + hd.isChoThanhToan());
+                        hoantat = hd.isHoaDonHoanTat();
+                    }
+
                 }
-            }); 
-        }    
+            });
+
+        }
+
     }
 
     void ShowBill(String IdPhong) {
@@ -107,12 +114,12 @@ int ThoiGian = 0;
         List<HoaDon> listHd = hddao.CheckBillByIDPhong(IdPhong);
         for (HoaDon hd : listHd) {
 //            idHoaDon = hd.getIDHoaDon();
-//             System.out.println("ID Hóa Đơn là :" + idHoaDon);
-            System.out.println("ID Phòng theo hóa đơn là :" + hd.getIDPhong());
+//              System.out.println("ID Hóa Đơn là :" + idHoaDon);
+
             idHoaDon = hd.getIDHoaDon();
             idPhong = hd.getIDPhong();
             System.out.println("ID hóa đơn theo phòng là: " + idHoaDon);
-            
+
         }
 
         ChiTietHoaDonDAO cthddao = new ChiTietHoaDonDAO();
@@ -124,7 +131,6 @@ int ThoiGian = 0;
         }
 
         MenuTrungGianDAO menudao = new MenuTrungGianDAO();
-        
 
         try {
             DefaultTableModel model = (DefaultTableModel) tblChitiethoadon.getModel();
@@ -380,34 +386,35 @@ int ThoiGian = 0;
     void ThanhToan() {
         HoaDonDAO hddao = new HoaDonDAO();
         if (idHoaDon != -1) {
-            JOptionPane.showMessageDialog(this, "Bạn đã thanh toán");
+            JOptionPane.showMessageDialog(this, "Thanh toán thành công");
             Date now = new Date();
             HoaDon hd = hddao.selectById(idHoaDon);
-            Long ThoiGianSuDung =(hd.getThoiGianKetThuc().getTime() - hd.getThoiGianBatDau().getTime());
-            int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(ThoiGianSuDung);
-            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian + (GiaPhong/60)));
-            ShowBill(idPhong);
             PhongDAO phong = new PhongDAO();
             phong.PhongStatus(idPhong);
+            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian + (GiaPhong / 60)));
+            ShowBill(idPhong);
             txtTien.setText("");
             pnlDatPhong.removeAll();
             OpenRoom();
-         
+
         }
     }
 
     void TraPhong() {
-        HoaDonDAO hddao = new HoaDonDAO();
-        if (idHoaDon != -1) {
-            JOptionPane.showMessageDialog(this, "Bạn đã thanh toán");
-            Date now = new Date();
-            hddao.TraPhong(XDate.toDate(txtThoiGianKetThuc.getText(), "dd-MM-yyyy hh:mm:ss"), idHoaDon);
-            ShowBill(idPhong);
-            PhongDAO phong = new PhongDAO();
-//            phong.PhongStatus(idPhong);
-            pnlDatPhong.removeAll();
-            OpenRoom();
-           
+        if (ChoThanhToan == true) {
+            MsgBox.alert(this, "Bạn đã trả phòng rồi");
+        } else {
+            HoaDonDAO hddao = new HoaDonDAO();
+            if (idHoaDon != -1) {
+                JOptionPane.showMessageDialog(this, "Trả phòng thành công");
+                Date now = new Date();
+                hddao.TraPhong(XDate.toDate(txtThoiGianKetThuc.getText(), "dd-MM-yyyy hh:mm:ss"), idHoaDon);
+                ShowBill(idPhong);
+//              
+                pnlDatPhong.removeAll();
+                OpenRoom();
+
+            }
         }
     }
 
@@ -491,8 +498,6 @@ int ThoiGian = 0;
             System.out.println("ID sản phẩm là: " + idSP);
         }
     }
-
-   
 
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
