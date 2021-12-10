@@ -28,5 +28,6 @@ public class HoaDon {
     private int DonGiaHoaDon;
     private boolean HoaDonHoanTat;
     private Date NgayTao;
+    private boolean ChoThanhToan; // sửa
  
 }
