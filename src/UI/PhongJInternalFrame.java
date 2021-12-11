@@ -337,7 +337,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 //        
 
     public void edit() {
-        String maP = (String) tblQuanLyPhong.getValueAt(this.row, 0);
+       String maP = (String) tblQuanLyPhong.getValueAt(this.row, 0);
         Phong nv = pdao.selectById(maP);
         this.setForm(nv);
         tabs.setSelectedIndex(0);
@@ -360,7 +360,10 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
 //        
 
     public void update() {
-        Phong p = getForm();
+       if(rdoSudung.isSelected()){
+           MsgBox.alert(this, "Phòng đang sử dụng.Không được sửa");
+       }else{
+            Phong p = getForm();
         try {
             pdao.update(p);
             this.fillTable();
@@ -369,12 +372,16 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             MsgBox.alert(this, "Cập Nhật Thất Bại");
         }
+       }
 
     }
 //        
 
     public void delete() {
-        if (!Auth.isManager()) {
+      if(rdoSudung.isSelected()){
+          MsgBox.alert(this, "Phòng đang sử dụng. Không được xóa");
+      }else{
+            if (!Auth.isManager()) {
             MsgBox.alert(this, "Bạn Không Đủ Thẩm Quyền");
         } else if (MsgBox.confirm(this, "Bạn có muốn xóa?")) {
             try {
@@ -388,6 +395,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
                 ex.printStackTrace();
             }
         }
+      }
 
     }
 //         
