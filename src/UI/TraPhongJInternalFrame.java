@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -85,7 +86,6 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //                JOptionPane.showMessageDialog(this, p.getIdPhong());
                     String Idroom = p.getIdPhong();
                     status = p.isTrangThaiPhong();
                     GiaPhong = p.getGiaPhong();
@@ -93,17 +93,11 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                     System.out.println(status);
                     System.out.println(Idroom);
                     ShowBill(Idroom);
-                    HoaDonDAO hddao = new HoaDonDAO();
-                    HoaDon hd = hddao.selectByIdPhong(Idroom);
-                    if (hd != null) {
-                        ChoThanhToan = hd.isChoThanhToan();
-                        System.out.println("Chờ thanh toán là: " + hd.isChoThanhToan());
-                        hoantat = hd.isHoaDonHoanTat();
-                    }
-
+                    System.out.println(ChoThanhToan);
                 }
             });
-
+           
+            
         }
 
     }
@@ -115,11 +109,11 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
         for (HoaDon hd : listHd) {
 //            idHoaDon = hd.getIDHoaDon();
 //              System.out.println("ID Hóa Đơn là :" + idHoaDon);
-
+            ChoThanhToan = hd.isChoThanhToan();
             idHoaDon = hd.getIDHoaDon();
             idPhong = hd.getIDPhong();
             System.out.println("ID hóa đơn theo phòng là: " + idHoaDon);
-
+            System.out.println("Hóa đơn chờ thanh toán: " + ChoThanhToan);
         }
 
         ChiTietHoaDonDAO cthddao = new ChiTietHoaDonDAO();
@@ -146,7 +140,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
 
             }
             int Tongtien = 0;
-            DecimalFormat formatter = new DecimalFormat("###,###,###");
+//            DecimalFormat formatter = new DecimalFormat("###,###,###");
             for (int i = 0; i < tblChitiethoadon.getRowCount(); i++) {
                 Tongtien += Integer.parseInt(tblChitiethoadon.getValueAt(i, 3).toString());
             }
@@ -384,20 +378,24 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     void ThanhToan() {
-        HoaDonDAO hddao = new HoaDonDAO();
+       if(ChoThanhToan == false){
+           MsgBox.alert(this, "Vui lòng trả phòng trước");
+       }else{
+            HoaDonDAO hddao = new HoaDonDAO();
         if (idHoaDon != -1) {
             JOptionPane.showMessageDialog(this, "Thanh toán thành công");
             Date now = new Date();
             HoaDon hd = hddao.selectById(idHoaDon);
             PhongDAO phong = new PhongDAO();
             phong.PhongStatus(idPhong);
-            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian + (GiaPhong / 60)));
+            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian * (GiaPhong / 60)));
             ShowBill(idPhong);
             txtTien.setText("");
             pnlDatPhong.removeAll();
             OpenRoom();
 
         }
+       }
     }
 
     void TraPhong() {
