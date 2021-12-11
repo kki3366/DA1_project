@@ -7,6 +7,7 @@ package DAO;
 
 import Entity.HoaDon;
 import Entity.NhanVien;
+import Ultils.XDate;
 import helper.JDBCHelper;
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
     final String SELECT_ALL_BYID = "select * from HoaDon where IDHoaDon = ?";
     final String SELECT_ALL = "select * from HoaDon";
     final String Check_ThanhToanByIDPhong = "select * from HoaDon where IDPhong = ?";
+
     @Override
     public void insert(HoaDon enity) {
         JDBCHelper.update(INSERT, enity.getIDPhong(), enity.getIDKhachHang(), enity.getThoiGianBatDau(), enity.getThoiGianKetThuc(), enity.getIDNhanVien(), enity.getDonGiaHoaDon(), enity.isHoaDonHoanTat(), enity.getNgayTao(), enity.isChoThanhToan()); // sửa
@@ -45,7 +47,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
 
     @Override
     public HoaDon selectById(Integer id) {
-          List<HoaDon> list = this.selectBySql(SELECT_ALL_BYID, id);
+        List<HoaDon> list = this.selectBySql(SELECT_ALL_BYID, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -54,7 +56,7 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
 
     @Override
     public List<HoaDon> selectAll() {
-      return this.selectBySql(SELECT_ALL);
+        return this.selectBySql(SELECT_ALL);
     }
 
     @Override
@@ -67,7 +69,11 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
                 enity.setIDHoaDon(rs.getInt("IDHoaDon"));
                 enity.setIDPhong(rs.getString("IDPhong"));
                 enity.setIDKhachHang(rs.getString("IDKhachHang"));
+//                Date thoigianbatdau =XDate.toDate(rs.getString("ThoiGianBatDau"), "dd-MM-yyyy hh:mm:ss");
+//                enity.setThoiGianBatDau(thoigianbatdau);
                 enity.setThoiGianBatDau(rs.getDate("ThoiGianBatDau"));
+                //  Date thoigianketthuc =XDate.toDate(rs.getString("ThoiGianKetThuc"), "dd-MM-yyyy hh:mm:ss");
+//                enity.setThoiGianBatDau(thoigianketthuc);
                 enity.setThoiGianKetThuc(rs.getDate("ThoiGianKetThuc"));
                 enity.setIDNhanVien(rs.getString("IDNhanVien"));
                 enity.setDonGiaHoaDon(rs.getInt("DonGiaHoaDon"));
@@ -83,21 +89,20 @@ public class HoaDonDAO extends DAO<HoaDon, Integer> {
         }
     }
 
-
     public List<HoaDon> CheckBillByIDPhong(String IdPhong) {
         return this.selectBySql(SELECT_IDBILLBYIDROOM, IdPhong);
     }
 
     public void ThanhToan(int id, int DonGiaHoaDon) {
-        JDBCHelper.update(UPDATE_STATUS_BILL, DonGiaHoaDon,id);
+        JDBCHelper.update(UPDATE_STATUS_BILL, DonGiaHoaDon, id);
     }
-    
-    public void TraPhong(Date checkOut, int idRoom){
-        JDBCHelper.update(UPDATE_BACK_ROOM, checkOut,idRoom);
+
+    public void TraPhong(Date checkOut, int idRoom) {
+        JDBCHelper.update(UPDATE_BACK_ROOM, checkOut, idRoom);
     }
-    
-     public HoaDon selectByIdPhong(String id) {
-          List<HoaDon> list = this.selectBySql(Check_ThanhToanByIDPhong, id);
+
+    public HoaDon selectByIdPhong(String id) {
+        List<HoaDon> list = this.selectBySql(Check_ThanhToanByIDPhong, id);
         if (list.isEmpty()) {
             return null;
         }
