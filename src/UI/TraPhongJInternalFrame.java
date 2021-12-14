@@ -62,12 +62,15 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     int idSP = 0;
     int slSP = 0;
     int IdCTHD = 0;
+    String TenSanPham;
     int GiaSanPham = 0;
     boolean status = false;
     int GiaPhong = 0;
     int ThoiGian = 0;
     boolean ChoThanhToan;
     boolean hoantat;
+    int row;
+
     void OpenRoom() {
 
         PhongDAO dao = new PhongDAO();
@@ -82,7 +85,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             if (p.isTrangThaiPhong() == true) {
                 btn.setBackground(Color.green);
             }
-            
+
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -94,12 +97,13 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                     System.out.println(Idroom);
                     ShowBill(Idroom);
                     System.out.println(ChoThanhToan);
+                    String test = cboSanPham.getSelectedItem().toString();
+                    System.out.println("test :" + test);
+
                 }
             });
-           
-            
-        }
 
+        }
 
     }
 
@@ -137,6 +141,8 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 model.addRow(rowTable);
                 ThoiGian = menuTG.getThoiGianSuDung();
                 slSP = menuTG.getSoLuongSanPham();
+                TenSanPham = menuTG.getTenSanPham();
+                System.out.println("Tên sản phẩm: " + TenSanPham);
                 System.out.println("số lượng sp: " + slSP);
 
             }
@@ -379,24 +385,24 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     void ThanhToan() {
-       if(ChoThanhToan == false){
-           MsgBox.alert(this, "Vui lòng trả phòng trước");
-       }else{
+        if (ChoThanhToan == false) {
+            MsgBox.alert(this, "Vui lòng trả phòng trước");
+        } else {
             HoaDonDAO hddao = new HoaDonDAO();
-        if (idHoaDon != -1) {
-            JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-            Date now = new Date();
-            HoaDon hd = hddao.selectById(idHoaDon);
-            PhongDAO phong = new PhongDAO();
-            phong.PhongStatus(idPhong);
-            hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian * (GiaPhong / 60)));
-            ShowBill(idPhong);
-            txtTien.setText("");
-            pnlDatPhong.removeAll();
-            OpenRoom();
+            if (idHoaDon != -1) {
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                Date now = new Date();
+                HoaDon hd = hddao.selectById(idHoaDon);
+                PhongDAO phong = new PhongDAO();
+                phong.PhongStatus(idPhong);
+                hddao.ThanhToan(idHoaDon, Integer.parseInt(txtTien.getText()) + (ThoiGian * (GiaPhong / 60)));
+                ShowBill(idPhong);
+                txtTien.setText("");
+                pnlDatPhong.removeAll();
+                OpenRoom();
 
+            }
         }
-       }
     }
 
     void TraPhong() {
@@ -440,22 +446,27 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
     }
 
     void insertSP() {
-        ChiTietHoaDon cthd = getForm();
-        try {
-            cthddao.insert(cthd);
-            System.out.println(cthd.getIDChiTietHoaDon());
-            ShowBill(idPhong);
-            System.out.println();
-            System.out.println("Thêm thành công");
-        } catch (Exception ex) {
-            if (ex.getMessage().contains("UNIQUE KEY")) {
-                MsgBox.alert(this, "Sản phẩm đã được thêm");
-            } else {
-                MsgBox.alert(this, "Thêm sản phẩm thất bại");
-                ex.printStackTrace();
+          ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
+          if(dao.Check_item(idHoaDon, idSP) == true){
+              MsgBox.alert(this, "Sản phẩm đã được thêm");
+          }else{
+               ChiTietHoaDon cthd = getForm();
+            try {
+                cthddao.insert(cthd);
+                System.out.println(cthd.getIDChiTietHoaDon());
+                ShowBill(idPhong);
+                System.out.println();
+                System.out.println("Thêm thành công");
+            } catch (Exception ex) {
+                if (ex.getMessage().contains("UNIQUE KEY")) {
+                    MsgBox.alert(this, "Sản phẩm đã được thêm");
+                } else {
+                    MsgBox.alert(this, "Thêm sản phẩm thất bại");
+                    ex.printStackTrace();
+                }
             }
+          }
 
-        }
     }
 
     void updateSP() {
