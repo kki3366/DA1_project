@@ -401,6 +401,7 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
     private void txtSDTKhachHangKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKhachHangKeyTyped
        if((txtSDTKhachHang.getText().length() >= 11) &&!(evt.getKeyChar()==KeyEvent.VK_DELETE||evt.getKeyChar()==KeyEvent.VK_BACK_SPACE)){
           MsgBox.alert(this, "SDT chỉ 11 số");
+          evt.consume();
        }
     }//GEN-LAST:event_txtSDTKhachHangKeyTyped
 
