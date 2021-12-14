@@ -80,7 +80,7 @@ public class quenMatKhauJDialog extends javax.swing.JDialog {
         // Step3: Send mail
         Transport transport = getMailSession.getTransport("smtp");
 
-        transport.connect("smtp.gmail.com", "deathhell1234m@gmail.com", "coganghocasp.net");
+        transport.connect("smtp.gmail.com", "deathhell1234m@gmail.com", "bexkmypcrjlraush");
         transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
         transport.close();
         if (transport != null) {
@@ -368,6 +368,7 @@ public class quenMatKhauJDialog extends javax.swing.JDialog {
                 Logger.getLogger(quenMatKhauJDialog.class.getName()).log(Level.SEVERE, null, ex);
             } catch (MessagingException ex) {
                 MsgBox.alert(this, "Gửi thất bại. Vui lòng kiểm tra lại Email");
+                ex.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnSendActionPerformed
