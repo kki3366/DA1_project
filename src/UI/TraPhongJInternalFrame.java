@@ -82,7 +82,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
             if (p.isTrangThaiPhong() == true) {
                 btn.setBackground(Color.green);
             }
-
+            
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -99,6 +99,7 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
            
             
         }
+
 
     }
 
@@ -408,7 +409,8 @@ public class TraPhongJInternalFrame extends javax.swing.JInternalFrame {
                 Date now = new Date();
                 hddao.TraPhong(XDate.toDate(txtThoiGianKetThuc.getText(), "dd-MM-yyyy hh:mm:ss"), idHoaDon);
                 ShowBill(idPhong);
-//              
+//                PhongDAO phong = new PhongDAO();
+//            phong.PhongStatus(idPhong);
                 pnlDatPhong.removeAll();
                 OpenRoom();
 
