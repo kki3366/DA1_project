@@ -64,7 +64,11 @@ public class mainFrame extends javax.swing.JFrame {
 
     // Open Form 
     void openLogin() {
-        new dangNhapJDialog(this, true).setVisible(true);
+        if(Auth.user != null){
+            MsgBox.alert(this, "Bạn đã đăng nhập rồi");
+        }else{
+            new dangNhapJDialog(this, true).setVisible(true);
+        }
     }
 
     void OpenchangePassWord() {
