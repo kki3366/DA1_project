@@ -33,7 +33,7 @@ public class mainFrame extends javax.swing.JFrame {
         
        
     }
-
+    //âa
     void init() {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
