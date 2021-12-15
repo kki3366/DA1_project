@@ -21,3 +21,4 @@ Cơ Sở dữ liệu
 + Có thêm một Unique tự động update trạng thái phòng khi hóa đơn được sinh ra
 
 --Những việc chưa làm xong:
+Frame: DonViTinh(10%), SanPham, ThongKe
