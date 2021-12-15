@@ -13,6 +13,7 @@ public class DonViTinh {
    int IDDVT ;
    String tenDVT;
    String IDNhanVIen;
+   int IDSanPham;
 
     public DonViTinh() {
     }
@@ -47,5 +48,14 @@ public class DonViTinh {
     public void setTenDVT(String tenDVT) {
         this.tenDVT = tenDVT;
     }
+
+    public int getIDSanPham() {
+        return IDSanPham;
+    }
+
+    public void setIDSanPham(int IDSanPham) {
+        this.IDSanPham = IDSanPham;
+    }
    
+    
 }
