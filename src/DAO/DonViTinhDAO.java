@@ -11,20 +11,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
 
 /**
  *
  * @author WINDOW
  */
 public class DonViTinhDAO {
-    String INSERT_SQL = "INSERT INTO DONVITINH(IDDVT,TENDVT, IDNHANVIEN)"+"VALUES (?,?,?)";
+    String INSERT_SQL = "INSERT INTO DONVITINH(IDDVT,TENDVT, IDSanPham,IDNHANVIEN) VALUES (?,?,?,?)";
     String UPDATE_SQL = "UPDATE DONVITINH SET TENDVT = ?,IDNHANVIEN= ?where IDDVT = ?";
     String DELETE_SQL = "DELETE FROM DONVITINH WHERE IDDVT=?";
     String SELECT_ALL_SQL = "SELECT * FROM DONVITINH";
     String SELECT_BY_ID_SQL = "SELECT * FROM DONVITINH WHERE IDDVT=?";
+    final String AUTO_ID ="SELECT MAX(IDDVT) from DonViTinh";
   
     public void insert(DonViTinh entity) {
-        JDBCHelper.update(INSERT_SQL, entity.getIDDVT(), entity.getTenDVT(), entity.getIDNhanVIen());
+        JDBCHelper.update(INSERT_SQL, entity.getIDDVT(), entity.getTenDVT(), entity.getIDSanPham(),entity.getIDNhanVIen());
     }
 
    
@@ -75,8 +79,27 @@ public class DonViTinhDAO {
     }
 
     public List<DonViTinh> selectByKeyword(String keyword) {
-        String sql = "SELECT * FROM CHUYENDE WHERE TENCD LIKE ?";
+        String sql = "SELECT * FROM DONVITINH WHERE TEDVT LIKE ?";
         return selectBySql(sql, "%" + keyword + "%");
+    }
+    
+     
+    public void AuToIdDVT(JTextField jtxf){
+        try {
+            ResultSet rs;
+            rs = JDBCHelper.query(AUTO_ID);
+            rs.next();
+            rs.getInt(1);
+            if( rs.getInt(1) < 0){
+                jtxf.setText("1");
+            }else{
+                int id = rs.getInt(1);
+                id++;
+                jtxf.setText(String.valueOf(id));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
