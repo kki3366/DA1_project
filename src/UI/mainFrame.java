@@ -109,9 +109,9 @@ public class mainFrame extends javax.swing.JFrame {
     void OpenSanPham() {
 
         if (Auth.isLogin()) {
-//            SanPhamJInternalFrame sp = new SanPhamJInternalFrame();
-//            OpenFrameAnother(sp);
-            new SanPhamJrame().setVisible(true);
+            SanPhamJinternal sp = new SanPhamJinternal();
+            OpenFrameAnother(sp);
+         
         } else {
             MsgBox.alert(this, "Vui Lòng Đăng Nhập");
         }
@@ -155,6 +155,15 @@ public class mainFrame extends javax.swing.JFrame {
          if (Auth.isLogin()) {
              TraPhongJInternalFrame traphong = new TraPhongJInternalFrame();
             OpenFrameAnother(traphong);
+        } else {
+            MsgBox.alert(this, "Vui Lòng Đăng Nhập");
+        }
+    }
+    
+    void OpenDonViTinh(){
+        if (Auth.isLogin()) {
+             DonViTinhJinternal donvitinh = new DonViTinhJinternal();
+            OpenFrameAnother(donvitinh);
         } else {
             MsgBox.alert(this, "Vui Lòng Đăng Nhập");
         }
@@ -216,8 +225,9 @@ public class mainFrame extends javax.swing.JFrame {
         mniQuanLyNhanVien = new javax.swing.JMenuItem();
         mniQuanLyKhachHang = new javax.swing.JMenuItem();
         menuThongKe = new javax.swing.JMenu();
-        mniLuongNguoiHoc = new javax.swing.JMenuItem();
+        mniThongKe = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        mniDonViTinh = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
 
         jMenuItem15.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
@@ -492,17 +502,28 @@ public class mainFrame extends javax.swing.JFrame {
         menuThongKe.setText("Thống kê");
         menuThongKe.setMargin(new java.awt.Insets(5, 5, 5, 5));
 
-        mniLuongNguoiHoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        mniLuongNguoiHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_graph_report_script_32px.png"))); // NOI18N
-        mniLuongNguoiHoc.setText("Thống Kê");
-        mniLuongNguoiHoc.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        mniLuongNguoiHoc.addActionListener(new java.awt.event.ActionListener() {
+        mniThongKe.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mniThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_graph_report_script_32px.png"))); // NOI18N
+        mniThongKe.setText("Thống Kê");
+        mniThongKe.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniLuongNguoiHocActionPerformed(evt);
+                mniThongKeActionPerformed(evt);
             }
         });
-        menuThongKe.add(mniLuongNguoiHoc);
+        menuThongKe.add(mniThongKe);
         menuThongKe.add(jSeparator3);
+
+        mniDonViTinh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mniDonViTinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_graph_report_script_32px.png"))); // NOI18N
+        mniDonViTinh.setText("Đơn Vị Tính");
+        mniDonViTinh.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        mniDonViTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDonViTinhActionPerformed(evt);
+            }
+        });
+        menuThongKe.add(mniDonViTinh);
         menuThongKe.add(jSeparator4);
 
         menuBar.add(menuThongKe);
@@ -530,16 +551,16 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
     private void mniSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSanPhamActionPerformed
-//        OpenSanPham();
+        OpenSanPham();
     }//GEN-LAST:event_mniSanPhamActionPerformed
 
     private void mniQuanLyNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniQuanLyNhanVienActionPerformed
         OpenNhanVien();
     }//GEN-LAST:event_mniQuanLyNhanVienActionPerformed
 
-    private void mniLuongNguoiHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLuongNguoiHocActionPerformed
+    private void mniThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThongKeActionPerformed
 
-    }//GEN-LAST:event_mniLuongNguoiHocActionPerformed
+    }//GEN-LAST:event_mniThongKeActionPerformed
 
     private void mniDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoiMatKhauActionPerformed
         OpenchangePassWord();
@@ -596,6 +617,10 @@ public class mainFrame extends javax.swing.JFrame {
     private void mniTraPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTraPhongActionPerformed
         OpenTraPhong();
     }//GEN-LAST:event_mniTraPhongActionPerformed
+
+    private void mniDonViTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDonViTinhActionPerformed
+       OpenDonViTinh();
+    }//GEN-LAST:event_mniDonViTinhActionPerformed
 
     /**
      * @param args the command line arguments
@@ -662,13 +687,14 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniDangXuat;
     private javax.swing.JMenuItem mniDatPhong;
     private javax.swing.JMenuItem mniDoiMatKhau;
+    private javax.swing.JMenuItem mniDonViTinh;
     private javax.swing.JMenuItem mniKetThuc;
-    private javax.swing.JMenuItem mniLuongNguoiHoc;
     private javax.swing.JMenuItem mniPhong;
     private javax.swing.JMenuItem mniQuanLyKhachHang;
     private javax.swing.JMenuItem mniQuanLyNhanVien;
     private javax.swing.JMenuItem mniQuenMatKhau;
     private javax.swing.JMenuItem mniSanPham;
+    private javax.swing.JMenuItem mniThongKe;
     private javax.swing.JMenuItem mniTraPhong;
     private javax.swing.JMenu mnuHeThong;
     private javax.swing.JPopupMenu popupMenu;
