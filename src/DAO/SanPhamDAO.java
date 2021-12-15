@@ -86,6 +86,11 @@ public class SanPhamDAO extends DAO<SanPham, Integer>{
         return list.get(0);
     }
     
+    public List<SanPham> selectByChuyenDe(String IDSP) {
+        String sql = "SELECT * FROM SanPham WHERE IDSANPHAM = ?";
+        return this.selectBySql(sql, IDSP);
+    }
+    
 }
 
    
