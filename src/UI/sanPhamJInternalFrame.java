@@ -24,6 +24,7 @@ public class sanPhamJInternalFrame extends javax.swing.JInternalFrame {
         txtNhanVien.setText(Auth.user.getIdNhanVien());
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

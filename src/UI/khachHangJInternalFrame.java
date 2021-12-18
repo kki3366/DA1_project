@@ -58,7 +58,7 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("QUẢN LÝ NHÂN VIÊN");
+        setTitle("QUẢN LÝ KHÁCH HÀNG");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }

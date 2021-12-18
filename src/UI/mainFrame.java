@@ -109,7 +109,7 @@ public class mainFrame extends javax.swing.JFrame {
     void OpenSanPham() {
 
         if (Auth.isLogin()) {
-            SanPhamJinternal sp = new SanPhamJinternal();
+            sanPhamJInternalFrame sp = new sanPhamJInternalFrame();
             OpenFrameAnother(sp);
          
         } else {
