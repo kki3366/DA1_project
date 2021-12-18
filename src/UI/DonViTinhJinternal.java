@@ -26,7 +26,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     DonViTinhDAO DAO = new DonViTinhDAO();
 
     public DonViTinhJinternal() {
-//        setTable();
+        setTable();
         initComponents();
         fillcboSanPham();
         FillTable();
@@ -34,10 +34,9 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         txtIDNhanVien.setText(Auth.user.getIdNhanVien());
     }
 
-//    public void setTable() {
-//        model = model = new DefaultTableModel(new Object[][]{}, new Object[]{"IDDVT", "Tên Dơn Vị Tính", "IDNHANVIEN"});
-//        tblDVT.setModel(model);
-//    }
+    public void setTable() {
+        model = model = new DefaultTableModel(new Object[][]{}, new Object[]{"IDDVT", "Tên Dơn Vị Tính","Tên Sản Phẩm", "IDNHANVIEN"});
+        tblDVT.setModel(model);    }
   boolean isUpdate = false;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -80,7 +79,15 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblDVT.setGridColor(new java.awt.Color(255, 255, 255));
         tblDVT.setRowHeight(30);
         tblDVT.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -384,7 +391,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         }
    
     }
-    int index = tblDVT.getSelectedColumn();
+    int index = tblDVT.getSelectedRow();
     void delete() {
         DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
        if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
