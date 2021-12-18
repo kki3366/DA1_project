@@ -84,6 +84,9 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         tblDVT.setGridColor(new java.awt.Color(255, 255, 255));
         tblDVT.setRowHeight(30);
         tblDVT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDVTMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblDVTMousePressed(evt);
             }
@@ -232,9 +235,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDVTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDVTMousePressed
-        // TODO add your handling code here:
-//        index = tblDVT.getSelectedRow();
-//        edit();
+      Tableclick();
     }//GEN-LAST:event_tblDVTMousePressed
 
     private void txtTimDVTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimDVTFocusGained
@@ -273,6 +274,10 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
      insert();
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tblDVTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDVTMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDVTMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -334,12 +339,12 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
 //
 //    }
 //
-//    void setForm(DonViTinh DVT) {
-//        txtIDDVT.setText(String.valueOf(DVT.getIDDVT()));
-//        txtTenDVT.setText(DVT.getTenDVT());
-//        txtIDNhanVien.setText(Auth.user.getIdNhanVien());
-//    }
-//
+    void setForm(DonViTinh DVT) {
+        txtIDDVT.setText(String.valueOf(DVT.getIDDVT()));
+        txtTenDVT.setText(DVT.getTenDVT());
+       txtIDNhanVien.setText(Auth.user.getIdNhanVien());
+    }
+
     DonViTinh getForm() {
         DonViTinh DVT = new DonViTinh();
         DVT.setIDDVT(Integer.valueOf(txtIDDVT.getText()));
@@ -365,7 +370,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     void updete(){
     DonViTinhDAO dao = new DonViTinhDAO();
     DonViTinh dvt = getForm();
-        if (MsgBox.confirm(this, "Bạn có chắc muốn cập nhật chuyên đề này không?")) {
+        if (MsgBox.confirm(this, "Bạn có chắc muốn cập nhật này không?")) {
              try {
              dao.update(dvt);
     this.FillTable();
@@ -388,11 +393,12 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
                 this.FillTable();
                 MsgBox.alert(this, "Xóa thành công!");
             } catch (Exception e) {
-                MsgBox.alert(this, "Không thể xóa chuyên đề đã tồn tại khóa học!");
+                MsgBox.alert(this, "Không thể xóa chuyên đề đã tồn tại!");
             }
         }
 
     }
+    
     
 //    
 //     void edit() {
@@ -503,7 +509,15 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
 //    }
     int IdSanPham;
     
-    
+   void Tableclick(){
+   int index = tblDVT.getSelectedRow();
+   txtIDDVT.setText((String) model.getValueAt(index, 0));
+   txtTenDVT.setText((String) model.getValueAt(index, 1));
+   cboSanPham.getItemAt(index);
+   txtIDNhanVien.setText((String) model.getValueAt(index, 3));
+           
+   
+   } 
     void AutoID(){
         DonViTinhDAO dao = new DonViTinhDAO();
         dao.AuToIdDVT(txtIDDVT);
