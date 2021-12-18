@@ -300,7 +300,7 @@ public void init() {
 
     DonViTinh getForm() {
         DonViTinh DVT = new DonViTinh();
-        DVT.setIDDVT(Integer.valueOf(txtIDDVT.getText()));
+        DVT.setIDDVT(Integer.parseInt(txtIDDVT.getText()));
         DVT.setTenDVT(txtTenDVT.getText());
         DVT.setIDSanPham(IdSanPham);
         DVT.setIDNhanVIen(txtNhanVien.getText());
