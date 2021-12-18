@@ -26,7 +26,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     DonViTinhDAO DAO = new DonViTinhDAO();
 
     public DonViTinhJinternal() {
-        setTable();
+//        setTable();
         initComponents();
         fillcboSanPham();
         FillTable();
@@ -367,8 +367,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         DonViTinh dvt = getForm();
          try {
             dao.insert(dvt);
-            this.FillTable();
-          
+            this.FillTable();       
             MsgBox.alert(this, "Thêm thành công");
         } catch (Exception e) {
             e.printStackTrace();
@@ -391,7 +390,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         }
    
     }
-    int index = tblDVT.getSelectedRow();
+    int index = -1;
     void delete() {
         DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
        if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
@@ -408,113 +407,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     }
     
     
-//    
-//     void edit() {
-//        try {
-//            String IDDVT = (String) tblDVT.getValueAt(this.index, 0);
-//            DonViTinh model = DAO.selectById(IDDVT);
-//            if (model != null) {
-//                setForm(model);//lỗi chưa bk sửa
-//                this.updateStatus();
-//            }
-//        } catch (Exception e) {
-//            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
-//        }
-//    }
-//       void insert() {
-//        DonViTinh model = getForm();
-//        if (model.getTenDVT()== null) {
-//            MsgBox.alert(this, "Hình Không Được Để Trống");
-//            return;
-//        }
-//        try {
-//            DAO.insert(model);
-//            this.FillTable();
-//            //MsgBox.alert(this, "Thêm mới thành công!");
-//        } catch (Exception e) {
-//            MsgBox.alert(this, "Thêm mới thất bại!");
-//        }
-//    }
-//
-//    void update() {
-//        DonViTinh model = getForm();
-//        if (MsgBox.confirm(this, "Bạn có chắc muốn cập nhật chuyên đề này không?")) {
-//            try {
-//                DAO.update(model);
-//                this.FillTable();
-//                clear();
-//                //MsgBox.alert(this, "Cập nhật thành công");
-//            } catch (Exception e) {
-//            }
-//
-//        }
-//    }
-//
-//    void delete() {
-//        DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
-//        if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
-//            try {
-//                String IDDVT = txtIDDVT.getText();
-//                DAO.delete(IDDVT);
-//                this.FillTable();
-//                MsgBox.alert(this, "Xóa thành công!");
-//            } catch (Exception e) {
-//                MsgBox.alert(this, "Không thể xóa chuyên đề đã tồn tại khóa học!");
-//            }
-//        }
-//
-//    }
-//
-//    void updateStatus() {
-//        boolean edit = (index >= 0);
-//        boolean first = this.index == 0;
-//        boolean last = this.index == tblDVT.getRowCount() - 1;
-//        tblDVT.setEnabled(!edit);
-//        btnThem.setEnabled(!edit);
-//        btnCapNhat.setEnabled(edit);
-//        btnXoa.setEnabled(edit);
-//
-//        btnFirst.setEnabled(edit && !first);
-//        btnPrev.setEnabled(edit && !first);
-//        btnNext.setEnabled(edit && !last);
-//        btnLast.setEnabled(edit && !last);
-//    }
-//    
-//    public void first() {
-//        index = 0;
-//        tblDVT.setRowSelectionInterval(index, index);
-//        edit();
-//    }
-//
-//    public void prev() {
-//        if (index > 0) {
-//            index--;
-//            tblDVT.setRowSelectionInterval(index, index);
-//            edit();
-//        }
-//    }
-//
-//    public void next() {
-//        if (index < tblDVT.getRowCount() - 1) {
-//            index++;
-//            tblDVT.setRowSelectionInterval(index, index);
-//            edit();
-//        }
-//    }
-//
-//    public void last() {
-//        index = tblDVT.getRowCount() - 1;
-//        tblDVT.setRowSelectionInterval(index, index);
-//        edit();
-//    }
-//
-//    void clear() {
-//        txtIDDVT.setText("");
-//        txtTenDVT.setText("");
-//        txtIDNhanVien.setText("");        
-//        index = -1;
-//        updateStatus();
-//    }
+
     int IdSanPham;
     
    void Tableclick(){
