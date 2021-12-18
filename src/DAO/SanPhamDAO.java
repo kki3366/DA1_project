@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,13 +21,14 @@ import java.util.List;
  */
 public class SanPhamDAO extends DAO<SanPham, Integer>{
     
-    String INSERT_SQL = "INSERT INTO SANPHAM(IDSanPham,TenSanPham, GiaSanPham, MoTaSanPham, IDDVT, IDNhanVien)"+"VALUES (?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE SANPHAM SET TenSanPham = ?,GiaSanPham= ?,MoTaSanPham=? where IDSanPham = ?";
+    String INSERT_SQL = "INSERT INTO SANPHAM(IDSanPham,TenSanPham, GiaSanPham, MoTaSanPham, IDNhanVien) VALUES (?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE SANPHAM SET TenSanPham = ?,GiaSanPham= ?,MoTaSanPham=?, IDNhanVien = ? where IDSanPham = ?";
     String DELETE_SQL = "DELETE FROM SANPHAM WHERE IDSanPham=?";
     String SELECT_ALL_SQL = "SELECT * FROM SanPham";
     String SELECT_BY_ID_SQL = "SELECT * FROM SANPHAM WHERE IDSanPham=?";
      final String SELECT_ALL = "select * from SanPham";
     final String Select_All_By_Id = "select * from SanPham where TenSanPham LIKE ?";
+    final String AUTO_ID ="SELECT MAX(IDSanPham) from SanPham";
     
     @Override
     public void insert(SanPham enity) {
@@ -86,9 +90,22 @@ public class SanPhamDAO extends DAO<SanPham, Integer>{
         return list.get(0);
     }
     
-    public List<SanPham> selectByChuyenDe(String IDSP) {
-        String sql = "SELECT * FROM SanPham WHERE IDSANPHAM = ?";
-        return this.selectBySql(sql, IDSP);
+    public void AuToIdSanPham(JTextField jtxf){
+        try {
+            ResultSet rs;
+            rs = JDBCHelper.query(AUTO_ID);
+            rs.next();
+            rs.getInt(1);
+            if( rs.getInt(1) < 0){
+                jtxf.setText("1");
+            }else{
+                int id = rs.getInt(1);
+                id++;
+                jtxf.setText(String.valueOf(id));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
