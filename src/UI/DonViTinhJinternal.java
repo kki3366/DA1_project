@@ -362,7 +362,39 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Thêm Thất Bại");
         }
     }
-//    int index = -1;
+    void updete(){
+    DonViTinhDAO dao = new DonViTinhDAO();
+    DonViTinh dvt = getForm();
+        if (MsgBox.confirm(this, "Bạn có chắc muốn cập nhật chuyên đề này không?")) {
+             try {
+             dao.update(dvt);
+    this.FillTable();
+    MsgBox.alert(this, "Cập nhật Thành Công");
+        }
+       
+         catch (Exception e) {
+            MsgBox.alert(this, "Cập nhật Thất Bại");
+        }
+        }
+   
+    }
+    int index = -1;
+    void delete() {
+        DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
+       if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
+            try {
+               String IDDVT = txtIDDVT.getText();
+                DAO.delete(IDDVT);
+                this.FillTable();
+                MsgBox.alert(this, "Xóa thành công!");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Không thể xóa chuyên đề đã tồn tại khóa học!");
+            }
+        }
+
+    }
+    
+//    
 //     void edit() {
 //        try {
 //            String IDDVT = (String) tblDVT.getValueAt(this.index, 0);
