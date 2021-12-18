@@ -513,7 +513,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
    int index = tblDVT.getSelectedRow();
    txtIDDVT.setText((String) model.getValueAt(index, 0));
    txtTenDVT.setText((String) model.getValueAt(index, 1));
-   cboSanPham.getItemAt(index);
+   cboSanPham.getSelectedItem();
    txtIDNhanVien.setText((String) model.getValueAt(index, 3));
            
    
