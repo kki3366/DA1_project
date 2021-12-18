@@ -26,7 +26,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     DonViTinhDAO DAO = new DonViTinhDAO();
 
     public DonViTinhJinternal() {
-        setTable();
+//        setTable();
         initComponents();
         fillcboSanPham();
         FillTable();
@@ -391,7 +391,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         }
    
     }
-    int index = tblDVT.getSelectedRow();
+    int index = -1;
     void delete() {
         DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
        if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
