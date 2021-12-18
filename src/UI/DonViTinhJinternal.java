@@ -235,7 +235,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDVTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDVTMousePressed
-      Tableclick();
+      //Tableclick();
     }//GEN-LAST:event_tblDVTMousePressed
 
     private void txtTimDVTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimDVTFocusGained
@@ -277,6 +277,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
 
     private void tblDVTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDVTMouseClicked
         // TODO add your handling code here:
+        Tableclick();
     }//GEN-LAST:event_tblDVTMouseClicked
 
 
@@ -383,7 +384,7 @@ public class DonViTinhJinternal extends javax.swing.JInternalFrame {
         }
    
     }
-    int index = -1;
+    int index = tblDVT.getSelectedColumn();
     void delete() {
         DonViTinh DVT = DAO.selectById(String.valueOf(tblDVT.getValueAt(index, 0)));
        if (MsgBox.confirm(this, "Bạn có chắc muốn xóa chuyên đề này không?")) {
