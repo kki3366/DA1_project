@@ -349,6 +349,7 @@ public class khachHangJInternalFrame extends javax.swing.JInternalFrame {
             kh.setIdKhachHang(makh);
             dao.update(kh);
             this.fillTable();
+            this.clearForm(); // thiếu clear form
             MsgBox.alert(this, "Cập Nhật Thành Công");
         } catch (Exception e) {
             MsgBox.alert(this, "Cập Nhật Thất Bại");
