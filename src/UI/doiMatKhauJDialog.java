@@ -39,6 +39,7 @@ public class doiMatKhauJDialog extends javax.swing.JDialog {
             Auth.user.setMatKhau(matKhauMoi);
             dao.update(Auth.user);
             MsgBox.alert(this, "Đổi Mật Khẩu Thành Công");
+            Auth.user = null;
             this.dispose();
         }
     }
