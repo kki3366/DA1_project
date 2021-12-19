@@ -320,7 +320,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
         p.setIdPhong(txtIDPhong.getText());
         p.setTenPhong(txtTenPhong.getText());
         p.setGiaPhong(Integer.parseInt(txtGiaPhong.getText()));
-        p.setTrangThaiPhong(rdoTrong.isSelected());
+        p.setTrangThaiPhong(!rdoTrong.isSelected()); // bug tại đây đã sửa
         p.setLoaiPhong(rdoVip.isSelected());
         return p;
     }
@@ -450,7 +450,7 @@ public class PhongJInternalFrame extends javax.swing.JInternalFrame {
     private void txtGiaPhongKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaPhongKeyPressed
          char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-            MsgBox.alert(this, "SDT phải là số");
+            MsgBox.alert(this, "Giá phòng phải là số và số nguyên"); // bug
             txtGiaPhong.setText("");
         } else {
 
