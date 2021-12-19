@@ -373,6 +373,7 @@ public class nhanVienJInternalFrame extends javax.swing.JInternalFrame {
             try {
                 dao.update(nv);
                 this.fillTable();
+                this.clearForm();
                 MsgBox.alert(this, "Cập Nhật Thành Công");
             } catch (Exception e) {
                 MsgBox.alert(this, "Cập Nhật Thất Bại");
